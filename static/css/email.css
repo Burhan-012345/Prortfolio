@@ -1,0 +1,135 @@
+/* Email Template Styles */
+.email-body {
+  font-family: "Inter", "Segoe UI", Arial, sans-serif;
+  line-height: 1.6;
+  color: #333;
+  max-width: 600px;
+  margin: 0 auto;
+  background: #f4f4f4;
+  padding: 20px;
+}
+
+.email-container {
+  background: #ffffff;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.email-header {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 30px;
+  text-align: center;
+}
+
+.email-header h1 {
+  margin: 0;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.email-content {
+  padding: 30px;
+}
+
+.message-card {
+  background: #f8f9fa;
+  border: 1px solid #e9ecef;
+  border-radius: 8px;
+  padding: 20px;
+  margin: 20px 0;
+}
+
+.field-group {
+  margin-bottom: 15px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid #e9ecef;
+}
+
+.field-label {
+  font-size: 12px;
+  text-transform: uppercase;
+  color: #6c757d;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  margin-bottom: 5px;
+}
+
+.field-value {
+  font-size: 16px;
+  color: #212529;
+  font-weight: 500;
+}
+
+.message-content {
+  background: white;
+  padding: 15px;
+  border-radius: 6px;
+  border-left: 4px solid #667eea;
+  margin-top: 10px;
+  white-space: pre-wrap;
+}
+
+.email-footer {
+  background: #f8f9fa;
+  padding: 20px 30px;
+  text-align: center;
+  border-top: 1px solid #e9ecef;
+}
+
+.footer-text {
+  color: #6c757d;
+  font-size: 14px;
+  margin: 0;
+}
+
+/* Dark mode support for email clients that support it */
+@media (prefers-color-scheme: dark) {
+  .email-body {
+    background: #1a1a1a;
+  }
+
+  .email-container {
+    background: #2d2d2d;
+    color: #ffffff;
+  }
+
+  .message-card {
+    background: #3d3d3d;
+    border-color: #4d4d4d;
+  }
+
+  .field-value {
+    color: #ffffff;
+  }
+
+  .message-content {
+    background: #3d3d3d;
+    color: #ffffff;
+  }
+
+  .email-footer {
+    background: #2d2d2d;
+    border-color: #4d4d4d;
+  }
+}
+
+/* Responsive email design */
+@media only screen and (max-width: 600px) {
+  .email-body {
+    padding: 10px;
+  }
+
+  .email-content {
+    padding: 20px;
+  }
+
+  .email-header {
+    padding: 20px;
+  }
+
+  .email-header h1 {
+    font-size: 20px;
+  }
+}
