@@ -1,0 +1,370 @@
+{% extends "admin/base.html" %} {% block title %}{{ title }}{% endblock %} {%
+block page_title %}{{ title }}{% endblock %} {% block content %}
+<div class="form-container">
+  <form method="POST" class="admin-form" id="blog-form">
+    {{ form.hidden_tag() }}
+
+    <div class="form-sections">
+      <!-- Basic Information -->
+      <div class="form-section">
+        <h3>Basic Information</h3>
+
+        <div class="form-group">
+          {{ form.title.label(class="form-label") }} {{
+          form.title(class="form-control", placeholder="Enter blog post title")
+          }}
+          <small class="form-help"
+            >This will be displayed as the main headline</small
+          >
+          {% for error in form.title.errors %}
+          <span class="form-error">{{ error }}</span>
+          {% endfor %}
+        </div>
+
+        <div class="form-group">
+          {{ form.slug.label(class="form-label") }} {{
+          form.slug(class="form-control", placeholder="url-slug") }}
+          <small class="form-help"
+            >URL-friendly version of the title (lowercase, hyphens instead of
+            spaces)</small
+          >
+          {% for error in form.slug.errors %}
+          <span class="form-error">{{ error }}</span>
+          {% endfor %}
+        </div>
+
+        <div class="form-group">
+          {{ form.excerpt.label(class="form-label") }} {{
+          form.excerpt(class="form-control", rows="3", placeholder="Brief
+          description of the post") }}
+          <small class="form-help"
+            >This will be shown in blog listings and meta descriptions</small
+          >
+          {% for error in form.excerpt.errors %}
+          <span class="form-error">{{ error }}</span>
+          {% endfor %}
+        </div>
+      </div>
+
+      <!-- Content -->
+      <div class="form-section">
+        <h3>Content</h3>
+
+        <div class="form-group">
+          {{ form.content.label(class="form-label") }} {{
+          form.content(class="form-control", rows="15", placeholder="Write your
+          blog post content here...") }}
+          <small class="form-help">Supports Markdown formatting</small>
+          {% for error in form.content.errors %}
+          <span class="form-error">{{ error }}</span>
+          {% endfor %}
+        </div>
+
+        <div class="editor-toolbar">
+          <button type="button" class="editor-btn" data-format="**Bold**">
+            <i class="fas fa-bold"></i>
+          </button>
+          <button type="button" class="editor-btn" data-format="_Italic_">
+            <i class="fas fa-italic"></i>
+          </button>
+          <button type="button" class="editor-btn" data-format="[Link](url)">
+            <i class="fas fa-link"></i>
+          </button>
+          <button
+            type="button"
+            class="editor-btn"
+            data-format="![Alt](image-url)"
+          >
+            <i class="fas fa-image"></i>
+          </button>
+          <button type="button" class="editor-btn" data-format="```code```">
+            <i class="fas fa-code"></i>
+          </button>
+          <button type="button" class="editor-btn" data-format="- List item">
+            <i class="fas fa-list"></i>
+          </button>
+          <button
+            type="button"
+            class="editor-btn"
+            data-format="1. Numbered item"
+          >
+            <i class="fas fa-list-ol"></i>
+          </button>
+          <button type="button" class="editor-btn" data-format="> Quote">
+            <i class="fas fa-quote-right"></i>
+          </button>
+        </div>
+
+        <div class="preview-section">
+          <h4>Preview</h4>
+          <div id="content-preview" class="preview-content"></div>
+        </div>
+      </div>
+
+      <!-- Metadata -->
+      <div class="form-section">
+        <h3>Metadata & Settings</h3>
+
+        <div class="form-row">
+          <div class="form-group">
+            {{ form.featured_image.label(class="form-label") }} {{
+            form.featured_image(class="form-control",
+            placeholder="https://example.com/image.jpg") }}
+            <small class="form-help">URL for the featured image</small>
+            {% for error in form.featured_image.errors %}
+            <span class="form-error">{{ error }}</span>
+            {% endfor %}
+          </div>
+
+          <div class="form-group">
+            {{ form.meta_description.label(class="form-label") }} {{
+            form.meta_description(class="form-control", placeholder="SEO meta
+            description") }}
+            <small class="form-help">Recommended: 150-160 characters</small>
+            {% for error in form.meta_description.errors %}
+            <span class="form-error">{{ error }}</span>
+            {% endfor %}
+          </div>
+        </div>
+
+        <div class="form-group">
+          {{ form.tags.label(class="form-label") }} {{
+          form.tags(class="form-control", placeholder="python, flask,
+          web-development") }}
+          <small class="form-help">Separate tags with commas</small>
+          {% for error in form.tags.errors %}
+          <span class="form-error">{{ error }}</span>
+          {% endfor %}
+        </div>
+
+        <div class="form-group">
+          <div class="checkbox-group">
+            {{ form.published() }} {{ form.published.label }}
+            <small class="form-help">Publish this post immediately</small>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-actions">
+      <button type="submit" class="btn btn-primary">
+        <i class="fas fa-save"></i> {{ 'Update Post' if post else 'Publish Post'
+        }}
+      </button>
+
+      {% if post %}
+      <a
+        href="{{ url_for('blog_post', slug=post.slug) }}"
+        class="btn btn-outline"
+        target="_blank"
+      >
+        <i class="fas fa-eye"></i> Preview
+      </a>
+      {% endif %}
+
+      <a href="{{ url_for('admin_blog') }}" class="btn btn-outline">
+        <i class="fas fa-times"></i> Cancel
+      </a>
+
+      {% if post %}
+      <button type="button" class="btn btn-danger" onclick="deletePost()">
+        <i class="fas fa-trash"></i> Delete
+      </button>
+      {% endif %}
+    </div>
+  </form>
+</div>
+{% endblock %} {% block scripts %}
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const contentTextarea = document.getElementById("content");
+    const previewDiv = document.getElementById("content-preview");
+    const editorButtons = document.querySelectorAll(".editor-btn");
+
+    // Markdown preview
+    function updatePreview() {
+      const markdown = contentTextarea.value;
+      previewDiv.innerHTML = marked.parse(markdown);
+    }
+
+    contentTextarea.addEventListener("input", updatePreview);
+    updatePreview(); // Initial preview
+
+    // Editor toolbar buttons
+    editorButtons.forEach((button) => {
+      button.addEventListener("click", function () {
+        const format = this.dataset.format;
+        const start = contentTextarea.selectionStart;
+        const end = contentTextarea.selectionEnd;
+        const selectedText = contentTextarea.value.substring(start, end);
+
+        let newText;
+        if (selectedText) {
+          // Wrap selected text
+          if (format.startsWith("![")) {
+            newText = `![${selectedText}](image-url)`;
+          } else if (format.startsWith("[")) {
+            newText = `[${selectedText}](url)`;
+          } else {
+            newText = format.replace("text", selectedText);
+          }
+        } else {
+          // Insert format template
+          newText = format;
+        }
+
+        // Insert the formatted text
+        contentTextarea.setRangeText(newText, start, end, "select");
+        contentTextarea.focus();
+        updatePreview();
+      });
+    });
+
+    // Auto-generate slug from title
+    const titleInput = document.getElementById("title");
+    const slugInput = document.getElementById("slug");
+
+    titleInput.addEventListener("blur", function () {
+      if (!slugInput.value) {
+        const slug = this.value
+          .toLowerCase()
+          .replace(/[^a-z0-9]+/g, "-")
+          .replace(/(^-|-$)+/g, "");
+        slugInput.value = slug;
+      }
+    });
+  });
+
+  function deletePost() {
+    if (
+      confirm(
+        "Are you sure you want to delete this blog post? This action cannot be undone."
+      )
+    ) {
+      window.location.href =
+        "{{ url_for('delete_blog_post', post_id=post.id) }}";
+    }
+  }
+</script>
+
+<style>
+  .form-sections {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  .form-section {
+    background: var(--bg-secondary);
+    border-radius: var(--border-radius);
+    padding: 1.5rem;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .form-section h3 {
+    margin-top: 0;
+    margin-bottom: 1rem;
+    color: var(--accent-primary);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding-bottom: 0.5rem;
+  }
+
+  .editor-toolbar {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .editor-btn {
+    background: var(--bg-glass);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+    color: var(--text-secondary);
+    padding: 0.5rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+
+  .editor-btn:hover {
+    background: var(--accent-primary);
+    color: #000;
+    border-color: var(--accent-primary);
+  }
+
+  .preview-section {
+    margin-top: 1.5rem;
+  }
+
+  .preview-section h4 {
+    margin-bottom: 0.5rem;
+    color: var(--text-primary);
+  }
+
+  .preview-content {
+    background: var(--bg-primary);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: var(--border-radius);
+    padding: 1rem;
+    min-height: 100px;
+    max-height: 400px;
+    overflow-y: auto;
+  }
+
+  .preview-content h1,
+  .preview-content h2,
+  .preview-content h3 {
+    color: var(--accent-primary);
+    margin-top: 1rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .preview-content p {
+    margin-bottom: 1rem;
+    line-height: 1.6;
+  }
+
+  .preview-content code {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 0.2rem 0.4rem;
+    border-radius: 3px;
+    font-family: monospace;
+  }
+
+  .preview-content pre {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 1rem;
+    border-radius: var(--border-radius);
+    overflow-x: auto;
+    margin: 1rem 0;
+  }
+
+  .preview-content blockquote {
+    border-left: 4px solid var(--accent-primary);
+    padding-left: 1rem;
+    margin: 1rem 0;
+    color: var(--text-secondary);
+  }
+
+  .checkbox-group {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .checkbox-group input[type="checkbox"] {
+    width: auto;
+  }
+
+  @media (max-width: 768px) {
+    .form-section {
+      padding: 1rem;
+    }
+
+    .editor-toolbar {
+      justify-content: center;
+    }
+  }
+</style>
+{% endblock %}

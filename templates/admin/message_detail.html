@@ -1,0 +1,99 @@
+{% extends "admin/base.html" %} {% block title %}Message from {{ message.name
+}}{% endblock %} {% block page_title %}Message Details{% endblock %} {% block
+content %}
+<div class="message-detail">
+  <div class="message-detail-header">
+    <div class="message-info">
+      <h2>{{ message.subject }}</h2>
+      <div class="message-meta">
+        <div class="meta-item">
+          <strong>From:</strong> {{ message.name }} &lt;{{ message.email }}&gt;
+        </div>
+        <div class="meta-item">
+          <strong>Date:</strong> {{ message.created_at.strftime('%Y-%m-%d at
+          %H:%M') }}
+        </div>
+        <div class="meta-item">
+          <strong>IP Address:</strong> {{ message.ip_address }}
+        </div>
+        <div class="meta-item">
+          <strong>Status:</strong>
+          {% if message.read %}
+          <span class="badge badge-success">Read</span>
+          {% else %}
+          <span class="badge badge-new">Unread</span>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+
+    <div class="message-actions">
+      {% if not message.read %}
+      <form
+        action="{{ url_for('mark_message_read', message_id=message.id) }}"
+        method="POST"
+        class="inline-form"
+      >
+        <button type="submit" class="btn btn-success">
+          <i class="fas fa-check"></i> Mark as Read
+        </button>
+      </form>
+      {% endif %}
+      <a
+        href="mailto:{{ message.email }}?subject=Re: {{ message.subject }}"
+        class="btn btn-primary"
+      >
+        <i class="fas fa-reply"></i> Reply
+      </a>
+      <form
+        action="{{ url_for('delete_message', message_id=message.id) }}"
+        method="POST"
+        class="inline-form"
+      >
+        <button
+          type="submit"
+          class="btn btn-danger"
+          onclick="return confirm('Delete this message?')"
+        >
+          <i class="fas fa-trash"></i> Delete
+        </button>
+      </form>
+      <a href="{{ url_for('admin_messages') }}" class="btn btn-outline">
+        <i class="fas fa-arrow-left"></i> Back to Messages
+      </a>
+    </div>
+  </div>
+
+  <div class="message-content card">
+    <div class="content-header">
+      <h3>Message Content</h3>
+    </div>
+    <div class="content-body">
+      {{ message.message|replace('\n', '<br />')|safe }}
+    </div>
+  </div>
+
+  <div class="message-quick-actions">
+    <h3>Quick Actions</h3>
+    <div class="action-buttons">
+      <a
+        href="mailto:{{ message.email }}?subject=Re: {{ message.subject }}&body=Hi {{ message.name }},%0D%0A%0D%0AThank you for your message regarding '{{ message.subject }}'.%0D%0A%0D%0A"
+        class="btn btn-outline"
+      >
+        <i class="fas fa-reply"></i> Quick Reply
+      </a>
+      <button class="btn btn-outline" onclick="copyEmail()">
+        <i class="fas fa-copy"></i> Copy Email
+      </button>
+    </div>
+  </div>
+</div>
+
+<script>
+  function copyEmail() {
+    navigator.clipboard.writeText("{{ message.email }}").then(function () {
+      alert("Email address copied to clipboard!");
+    });
+  }
+</script>
+{% endblock %}

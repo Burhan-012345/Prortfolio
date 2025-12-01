@@ -1,0 +1,89 @@
+{% extends "admin/base.html" %} {% block title %}Manage Projects{% endblock %}
+{% block page_title %}Manage Projects{% endblock %} {% block content %}
+<div class="admin-header-actions">
+  <a href="{{ url_for('new_project') }}" class="btn btn-primary">
+    <i class="fas fa-plus"></i> Add New Project
+  </a>
+</div>
+
+<div class="table-container">
+  <table class="admin-table">
+    <thead>
+      <tr>
+        <th>Title</th>
+        <th>Category</th>
+        <th>Technologies</th>
+        <th>Featured</th>
+        <th>Views</th>
+        <th>Created</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for project in projects %}
+      <tr>
+        <td>
+          <strong>{{ project.title }}</strong>
+          {% if project.image_url %}
+          <br /><small class="text-muted">Has image</small>
+          {% endif %}
+        </td>
+        <td>{{ project.category or '—' }}</td>
+        <td>
+          <div class="tech-tags">
+            {% for tech in project.technologies.split(',')[:3] %}
+            <span class="tech-tag small">{{ tech.strip() }}</span>
+            {% endfor %} {% if project.technologies and
+            project.technologies.split(',')|length > 3 %}
+            <span class="tech-tag small"
+              >+{{ project.technologies.split(',')|length - 3 }}</span
+            >
+            {% endif %}
+          </div>
+        </td>
+        <td>
+          {% if project.featured %}
+          <span class="badge badge-success">Yes</span>
+          {% else %}
+          <span class="badge">No</span>
+          {% endif %}
+        </td>
+        <td>{{ project.views }}</td>
+        <td>{{ project.created_at.strftime('%Y-%m-%d') }}</td>
+        <td class="actions">
+          <a
+            href="{{ url_for('edit_project', project_id=project.id) }}"
+            class="btn btn-small"
+          >
+            <i class="fas fa-edit"></i>
+          </a>
+          <form
+            action="{{ url_for('delete_project', project_id=project.id) }}"
+            method="POST"
+            class="inline-form"
+          >
+            <button
+              type="submit"
+              class="btn btn-small btn-danger"
+              onclick="return confirm('Are you sure?')"
+            >
+              <i class="fas fa-trash"></i>
+            </button>
+          </form>
+        </td>
+      </tr>
+      {% else %}
+      <tr>
+        <td colspan="7" class="no-data">
+          <p>
+            No projects found.
+            <a href="{{ url_for('new_project') }}">Create your first project</a
+            >.
+          </p>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

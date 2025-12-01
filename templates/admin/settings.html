@@ -1,0 +1,149 @@
+{% extends "admin/base.html" %} {% block title %}Site Settings{% endblock %} {%
+block page_title %}Site Settings{% endblock %} {% block content %}
+<div class="settings-container">
+  <form method="POST" class="admin-form">
+    {{ form.hidden_tag() }}
+
+    <div class="settings-sections">
+      <!-- General Settings -->
+      <div class="settings-section">
+        <h3>General Settings</h3>
+
+        <div class="form-group">
+          {{ form.site_name.label(class="form-label") }} {{
+          form.site_name(class="form-control", placeholder="My Portfolio") }}
+          <small class="form-help"
+            >The name displayed throughout your portfolio</small
+          >
+        </div>
+
+        <div class="form-group">
+          {{ form.admin_email.label(class="form-label") }} {{
+          form.admin_email(class="form-control",
+          placeholder="admin@portfolio.com") }}
+          <small class="form-help"
+            >Email where notifications will be sent</small
+          >
+        </div>
+      </div>
+
+      <!-- Email Settings -->
+      <div class="settings-section">
+        <h3>Email Configuration</h3>
+
+        <div class="form-row">
+          <div class="form-group">
+            {{ form.mail_server.label(class="form-label") }} {{
+            form.mail_server(class="form-control", placeholder="smtp.gmail.com")
+            }}
+          </div>
+
+          <div class="form-group">
+            {{ form.mail_port.label(class="form-label") }} {{
+            form.mail_port(class="form-control", placeholder="587") }}
+          </div>
+        </div>
+
+        <div class="form-group">
+          {{ form.mail_username.label(class="form-label") }} {{
+          form.mail_username(class="form-control",
+          placeholder="your.email@gmail.com") }}
+        </div>
+
+        <div class="form-group">
+          {{ form.mail_password.label(class="form-label") }} {{
+          form.mail_password(class="form-control", placeholder="Leave blank to
+          keep current password") }}
+          <small class="form-help"
+            >Only enter if you want to change the password</small
+          >
+        </div>
+
+        <div class="form-group">
+          <div class="checkbox-group">
+            {{ form.mail_use_tls() }} {{ form.mail_use_tls.label }}
+          </div>
+        </div>
+
+        <div class="form-group">
+          <div class="checkbox-group">
+            {{ form.email_notifications() }} {{ form.email_notifications.label
+            }}
+            <small class="form-help"
+              >Send email notifications for new contact messages</small
+            >
+          </div>
+        </div>
+      </div>
+
+      <!-- Feature Toggles -->
+      <div class="settings-section">
+        <h3>Feature Toggles</h3>
+
+        <div class="form-group">
+          <div class="checkbox-group">
+            {{ form.ai_chat_enabled() }} {{ form.ai_chat_enabled.label }}
+            <small class="form-help"
+              >Enable the AI chat assistant on your portfolio</small
+            >
+          </div>
+        </div>
+      </div>
+
+      <!-- Danger Zone -->
+      <div class="settings-section danger-zone">
+        <h3>Danger Zone</h3>
+
+        <div class="danger-actions">
+          <button type="button" class="btn btn-danger" onclick="clearAllData()">
+            <i class="fas fa-trash"></i> Clear All Data
+          </button>
+          <button
+            type="button"
+            class="btn btn-danger"
+            onclick="resetToDefaults()"
+          >
+            <i class="fas fa-undo"></i> Reset to Defaults
+          </button>
+        </div>
+        <small class="form-help warning"
+          >These actions cannot be undone. Proceed with caution.</small
+        >
+      </div>
+    </div>
+
+    <div class="form-actions">
+      <button type="submit" class="btn btn-primary">
+        <i class="fas fa-save"></i> Save Settings
+      </button>
+      <button type="reset" class="btn btn-outline">
+        <i class="fas fa-undo"></i> Reset Changes
+      </button>
+    </div>
+  </form>
+</div>
+
+<script>
+  function clearAllData() {
+    if (
+      confirm(
+        "WARNING: This will delete all projects, blog posts, and messages. This action cannot be undone. Are you sure?"
+      )
+    ) {
+      // Implement clear all data functionality
+      alert("This feature would be implemented in a production environment");
+    }
+  }
+
+  function resetToDefaults() {
+    if (
+      confirm(
+        "This will reset all settings to their default values. Are you sure?"
+      )
+    ) {
+      // Implement reset to defaults
+      alert("This feature would be implemented in a production environment");
+    }
+  }
+</script>
+{% endblock %}

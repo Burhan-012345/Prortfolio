@@ -1,0 +1,112 @@
+{% extends "admin/base.html" %} {% block title %}{{ title }}{% endblock %} {%
+block page_title %}{{ title }}{% endblock %} {% block content %}
+<div class="form-container">
+  <form method="POST" enctype="multipart/form-data" class="admin-form">
+    {{ form.hidden_tag() }}
+
+    <div class="form-section">
+      <h3>Basic Information</h3>
+
+      <div class="form-group">
+        {{ form.title.label(class="form-label") }} {{
+        form.title(class="form-control", placeholder="Enter project title") }}
+        {% for error in form.title.errors %}
+        <span class="form-error">{{ error }}</span>
+        {% endfor %}
+      </div>
+
+      <div class="form-group">
+        {{ form.description.label(class="form-label") }} {{
+        form.description(class="form-control", rows="4", placeholder="Brief
+        project description") }} {% for error in form.description.errors %}
+        <span class="form-error">{{ error }}</span>
+        {% endfor %}
+      </div>
+
+      <div class="form-group">
+        {{ form.category.label(class="form-label") }} {{
+        form.category(class="form-control", placeholder="e.g., Web Development,
+        Mobile App") }} {% for error in form.category.errors %}
+        <span class="form-error">{{ error }}</span>
+        {% endfor %}
+      </div>
+    </div>
+
+    <div class="form-section">
+      <h3>Project Details</h3>
+
+      <div class="form-group">
+        {{ form.technologies.label(class="form-label") }} {{
+        form.technologies(class="form-control", placeholder="Python, Flask,
+        React, PostgreSQL") }}
+        <small class="form-help">Separate technologies with commas</small>
+        {% for error in form.technologies.errors %}
+        <span class="form-error">{{ error }}</span>
+        {% endfor %}
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          {{ form.github_url.label(class="form-label") }} {{
+          form.github_url(class="form-control",
+          placeholder="https://github.com/username/repo") }} {% for error in
+          form.github_url.errors %}
+          <span class="form-error">{{ error }}</span>
+          {% endfor %}
+        </div>
+
+        <div class="form-group">
+          {{ form.live_url.label(class="form-label") }} {{
+          form.live_url(class="form-control", placeholder="https://example.com")
+          }} {% for error in form.live_url.errors %}
+          <span class="form-error">{{ error }}</span>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+
+    <div class="form-section">
+      <h3>Media & Settings</h3>
+
+      <div class="form-group">
+        {{ form.image.label(class="form-label") }} {{
+        form.image(class="form-control") }}
+        <small class="form-help"
+          >Recommended size: 800x600px. Supported formats: JPG, PNG, GIF</small
+        >
+        {% for error in form.image.errors %}
+        <span class="form-error">{{ error }}</span>
+        {% endfor %} {% if project and project.image_url %}
+        <div class="current-image">
+          <p><strong>Current Image:</strong></p>
+          <img
+            src="{{ url_for('static', filename=project.image_url) }}"
+            alt="Current project image"
+            style="max-width: 200px; border-radius: 8px"
+          />
+        </div>
+        {% endif %}
+      </div>
+
+      <div class="form-group">
+        <div class="checkbox-group">
+          {{ form.featured() }} {{ form.featured.label }}
+          <small class="form-help"
+            >Featured projects appear on the homepage</small
+          >
+        </div>
+      </div>
+    </div>
+
+    <div class="form-actions">
+      <button type="submit" class="btn btn-primary">
+        <i class="fas fa-save"></i> {{ 'Update Project' if project else 'Create
+        Project' }}
+      </button>
+      <a href="{{ url_for('admin_projects') }}" class="btn btn-outline">
+        <i class="fas fa-times"></i> Cancel
+      </a>
+    </div>
+  </form>
+</div>
+{% endblock %}
