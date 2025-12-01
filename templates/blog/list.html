@@ -1,0 +1,39 @@
+{% extends "base.html" %} {% block title %}Blog - Portfolio{% endblock %} {%
+block content %}
+<section class="section">
+  <div class="container">
+    <h1 class="page-title">Blog Posts</h1>
+
+    <div class="blog-grid">
+      {% for post in posts %}
+      <article class="blog-card card">
+        <div class="blog-content">
+          <h2 class="blog-title">
+            <a href="{{ url_for('blog_post', slug=post.slug) }}"
+              >{{ post.title }}</a
+            >
+          </h2>
+          <p class="blog-excerpt">
+            {{ post.excerpt or post.content[:200] + '...' }}
+          </p>
+          <div class="blog-meta">
+            <span class="blog-date">
+              <i class="fas fa-calendar"></i>
+              {{ post.created_at.strftime('%B %d, %Y') }}
+            </span>
+            <span class="blog-views">
+              <i class="fas fa-eye"></i>
+              {{ post.views }} views
+            </span>
+            <span class="blog-author">
+              <i class="fas fa-user"></i>
+              {{ post.author.username }}
+            </span>
+          </div>
+        </div>
+      </article>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endblock %}
