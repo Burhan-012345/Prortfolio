@@ -1,0 +1,1239 @@
+{% extends "base.html" %} {% block title %}Resume - Burhan Ahmed{% endblock %}
+{% block content %}
+<section class="section">
+  <div class="container">
+    <!-- Resume Header -->
+    <div class="resume-header text-center">
+      <h1 class="page-title">Burhan Ahmed</h1>
+      <p class="resume-subtitle">Full Stack Developer & Python Expert</p>
+
+      <!-- Resume Actions -->
+      <div class="resume-actions">
+        <button class="btn magnetic" onclick="showDownloadModal()">
+          <i class="fas fa-download"></i> Download Resume
+        </button>
+        <button class="btn btn-outline magnetic" onclick="printResume()">
+          <i class="fas fa-print"></i> Print Resume
+        </button>
+        <a href="{{ url_for('contact') }}" class="btn btn-outline magnetic">
+          <i class="fas fa-envelope"></i> Hire Me
+        </a>
+      </div>
+    </div>
+
+    <!-- Resume Content -->
+    <div class="resume-content">
+      <div class="resume-layout">
+        <!-- Left Column -->
+        <div class="resume-left">
+          <!-- Contact Information -->
+          <div class="resume-section glass">
+            <h3 class="section-title">
+              <i class="fas fa-user"></i>
+              Contact Info
+            </h3>
+            <div class="contact-list">
+              <div class="contact-item">
+                <i class="fas fa-envelope"></i>
+                <div>
+                  <span class="contact-label">Email</span>
+                  <span class="contact-value">devil160907@gmail.com</span>
+                </div>
+              </div>
+              <div class="contact-item">
+                <i class="fas fa-phone"></i>
+                <div>
+                  <span class="contact-label">Phone</span>
+                  <span class="contact-value">+92 312 2626262</span>
+                </div>
+              </div>
+              <div class="contact-item">
+                <i class="fas fa-map-marker-alt"></i>
+                <div>
+                  <span class="contact-label">Location</span>
+                  <span class="contact-value">Karachi, Pakistan</span>
+                </div>
+              </div>
+              <div class="contact-item">
+                <i class="fab fa-linkedin"></i>
+                <div>
+                  <span class="contact-label">LinkedIn</span>
+                  <span class="contact-value"
+                    >linkedin.com/in/burhan-ahmed</span
+                  >
+                </div>
+              </div>
+              <div class="contact-item">
+                <i class="fab fa-github"></i>
+                <div>
+                  <span class="contact-label">GitHub</span>
+                  <span class="contact-value">github.com/burhan-ahmed</span>
+                </div>
+              </div>
+              <div class="contact-item">
+                <i class="fas fa-globe"></i>
+                <div>
+                  <span class="contact-label">Portfolio</span>
+                  <span class="contact-value">burhanahmed.dev</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Skills -->
+          <div class="resume-section glass">
+            <h3 class="section-title">
+              <i class="fas fa-code"></i>
+              Technical Skills
+            </h3>
+            <div class="skills-categories">
+              <!-- Backend Skills -->
+              <div class="skill-category">
+                <h4>Backend</h4>
+                <div class="skill-tags">
+                  <span class="skill-tag">Python</span>
+                  <span class="skill-tag">Flask</span>
+                  <span class="skill-tag">Django</span>
+                  <span class="skill-tag">FastAPI</span>
+                  <span class="skill-tag">Node.js</span>
+                  <span class="skill-tag">PostgreSQL</span>
+                  <span class="skill-tag">MySQL</span>
+                  <span class="skill-tag">MongoDB</span>
+                  <span class="skill-tag">REST APIs</span>
+                  <span class="skill-tag">GraphQL</span>
+                </div>
+              </div>
+
+              <!-- Frontend Skills -->
+              <div class="skill-category">
+                <h4>Frontend</h4>
+                <div class="skill-tags">
+                  <span class="skill-tag">JavaScript</span>
+                  <span class="skill-tag">React</span>
+                  <span class="skill-tag">Vue.js</span>
+                  <span class="skill-tag">HTML5</span>
+                  <span class="skill-tag">CSS3</span>
+                  <span class="skill-tag">SASS</span>
+                  <span class="skill-tag">TypeScript</span>
+                  <span class="skill-tag">Tailwind CSS</span>
+                  <span class="skill-tag">Bootstrap</span>
+                </div>
+              </div>
+
+              <!-- DevOps & Tools -->
+              <div class="skill-category">
+                <h4>DevOps & Tools</h4>
+                <div class="skill-tags">
+                  <span class="skill-tag">Docker</span>
+                  <span class="skill-tag">AWS</span>
+                  <span class="skill-tag">Git</span>
+                  <span class="skill-tag">GitHub</span>
+                  <span class="skill-tag">CI/CD</span>
+                  <span class="skill-tag">Linux</span>
+                  <span class="skill-tag">Nginx</span>
+                  <span class="skill-tag">Jenkins</span>
+                  <span class="skill-tag">Redis</span>
+                  <span class="skill-tag">Celery</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Education -->
+          <div class="resume-section glass">
+            <h3 class="section-title">
+              <i class="fas fa-graduation-cap"></i>
+              Education
+            </h3>
+            <div class="education-list">
+              <div class="education-item">
+                <h4>Bachelor of Science in Computer Science</h4>
+                <div class="education-meta">
+                  <span class="education-school">University of Karachi</span>
+                  <span class="education-date">2019 - 2023</span>
+                </div>
+                <p class="education-description">
+                  Graduated with distinction. Focus on Software Engineering, Web
+                  Technologies, and Artificial Intelligence. Relevant
+                  coursework: Data Structures, Algorithms, Database Systems, Web
+                  Development.
+                </p>
+              </div>
+              <div class="education-item">
+                <h4>Advanced Python Programming</h4>
+                <div class="education-meta">
+                  <span class="education-school">Coursera</span>
+                  <span class="education-date">2022</span>
+                </div>
+                <p class="education-description">
+                  Specialized course covering advanced Python concepts, web
+                  frameworks, and software architecture patterns.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Certifications -->
+          <div class="resume-section glass">
+            <h3 class="section-title">
+              <i class="fas fa-certificate"></i>
+              Certifications
+            </h3>
+            <div class="certifications-list">
+              <div class="certification-item">
+                <h4>AWS Certified Cloud Practitioner</h4>
+                <span class="certification-date">2023</span>
+              </div>
+              <div class="certification-item">
+                <h4>Python Professional Certification</h4>
+                <span class="certification-date">2022</span>
+              </div>
+              <div class="certification-item">
+                <h4>Full Stack Web Development</h4>
+                <span class="certification-date">2021</span>
+              </div>
+              <div class="certification-item">
+                <h4>Django Web Framework Specialist</h4>
+                <span class="certification-date">2021</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Languages -->
+          <div class="resume-section glass">
+            <h3 class="section-title">
+              <i class="fas fa-language"></i>
+              Languages
+            </h3>
+            <div class="languages-list">
+              <div class="language-item">
+                <span class="language-name">English</span>
+                <span class="language-level">Fluent</span>
+              </div>
+              <div class="language-item">
+                <span class="language-name">Urdu</span>
+                <span class="language-level">Native</span>
+              </div>
+              <div class="language-item">
+                <span class="language-name">Arabic</span>
+                <span class="language-level">Basic</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Column -->
+        <div class="resume-right">
+          <!-- Professional Summary -->
+          <div class="resume-section glass">
+            <h3 class="section-title">
+              <i class="fas fa-star"></i>
+              Professional Summary
+            </h3>
+            <div class="summary-content">
+              <p>
+                Passionate Full Stack Developer with 3+ years of experience
+                building scalable web applications using modern technologies.
+                Strong expertise in Python, Flask, Django, React, and cloud
+                technologies. Proven track record of delivering high-quality
+                software solutions that drive business growth and improve user
+                experience.
+              </p>
+              <div class="summary-highlights">
+                <div class="highlight-item">
+                  <i class="fas fa-check"></i>
+                  <span>3+ years professional development experience</span>
+                </div>
+                <div class="highlight-item">
+                  <i class="fas fa-check"></i>
+                  <span>25+ successful projects delivered</span>
+                </div>
+                <div class="highlight-item">
+                  <i class="fas fa-check"></i>
+                  <span>Expert in Python & JavaScript ecosystems</span>
+                </div>
+                <div class="highlight-item">
+                  <i class="fas fa-check"></i>
+                  <span>Strong problem-solving and analytical skills</span>
+                </div>
+                <div class="highlight-item">
+                  <i class="fas fa-check"></i>
+                  <span>Experience with Agile methodologies</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Work Experience -->
+          <div class="resume-section glass">
+            <h3 class="section-title">
+              <i class="fas fa-briefcase"></i>
+              Work Experience
+            </h3>
+            <div class="experience-list">
+              <!-- Experience 1 -->
+              <div class="experience-item">
+                <div class="experience-header">
+                  <div class="experience-title">
+                    <h4>Senior Full Stack Developer</h4>
+                    <span class="company">Tech Innovations Pakistan</span>
+                  </div>
+                  <div class="experience-date">2022 - Present</div>
+                </div>
+                <div class="experience-description">
+                  <p>
+                    Lead developer for multiple client projects, building
+                    scalable web applications and APIs using Python, Flask, and
+                    React.
+                  </p>
+                  <ul class="experience-highlights">
+                    <li>
+                      Developed and maintained 12+ web applications serving
+                      100,000+ monthly users
+                    </li>
+                    <li>
+                      Reduced application load time by 45% through performance
+                      optimization and caching strategies
+                    </li>
+                    <li>
+                      Implemented CI/CD pipelines reducing deployment time by
+                      70% and improving deployment reliability
+                    </li>
+                    <li>
+                      Led a team of 4 junior developers, conducting code reviews
+                      and mentoring sessions
+                    </li>
+                    <li>
+                      Integrated third-party APIs including payment gateways,
+                      SMS services, and cloud storage
+                    </li>
+                  </ul>
+                  <div class="tech-used">
+                    <span class="tech-label">Technologies:</span>
+                    <div class="tech-tags">
+                      <span class="tech-tag">Python</span>
+                      <span class="tech-tag">Flask</span>
+                      <span class="tech-tag">React</span>
+                      <span class="tech-tag">PostgreSQL</span>
+                      <span class="tech-tag">AWS</span>
+                      <span class="tech-tag">Docker</span>
+                      <span class="tech-tag">Redis</span>
+                      <span class="tech-tag">Celery</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Experience 2 -->
+              <div class="experience-item">
+                <div class="experience-header">
+                  <div class="experience-title">
+                    <h4>Full Stack Developer</h4>
+                    <span class="company">Digital Solutions Co.</span>
+                  </div>
+                  <div class="experience-date">2021 - 2022</div>
+                </div>
+                <div class="experience-description">
+                  <p>
+                    Developed custom web solutions for various clients across
+                    e-commerce, healthcare, and education sectors.
+                  </p>
+                  <ul class="experience-highlights">
+                    <li>
+                      Built 18+ responsive web applications from concept to
+                      deployment using modern frameworks
+                    </li>
+                    <li>
+                      Integrated third-party APIs including Stripe, Twilio, and
+                      Google Maps
+                    </li>
+                    <li>
+                      Improved code quality by 40% through implementing testing
+                      standards and code review processes
+                    </li>
+                    <li>
+                      Collaborated with UI/UX designers to create pixel-perfect,
+                      user-friendly interfaces
+                    </li>
+                    <li>
+                      Optimized database queries reducing page load times by 30%
+                    </li>
+                  </ul>
+                  <div class="tech-used">
+                    <span class="tech-label">Technologies:</span>
+                    <div class="tech-tags">
+                      <span class="tech-tag">JavaScript</span>
+                      <span class="tech-tag">Vue.js</span>
+                      <span class="tech-tag">Node.js</span>
+                      <span class="tech-tag">MongoDB</span>
+                      <span class="tech-tag">Express</span>
+                      <span class="tech-tag">MySQL</span>
+                      <span class="tech-tag">REST APIs</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Experience 3 -->
+              <div class="experience-item">
+                <div class="experience-header">
+                  <div class="experience-title">
+                    <h4>Junior Web Developer</h4>
+                    <span class="company">Startup Ventures PK</span>
+                  </div>
+                  <div class="experience-date">2020 - 2021</div>
+                </div>
+                <div class="experience-description">
+                  <p>
+                    Started career building foundational skills in web
+                    development while contributing to early-stage startup
+                    projects.
+                  </p>
+                  <ul class="experience-highlights">
+                    <li>
+                      Developed frontend components and backend APIs for various
+                      web applications
+                    </li>
+                    <li>
+                      Participated in agile development processes and daily
+                      standups
+                    </li>
+                    <li>
+                      Gained experience with version control (Git) and
+                      collaboration tools
+                    </li>
+                    <li>
+                      Built responsive websites using modern CSS frameworks and
+                      JavaScript
+                    </li>
+                    <li>
+                      Contributed to open-source projects and participated in
+                      hackathons
+                    </li>
+                  </ul>
+                  <div class="tech-used">
+                    <span class="tech-label">Technologies:</span>
+                    <div class="tech-tags">
+                      <span class="tech-tag">HTML/CSS</span>
+                      <span class="tech-tag">JavaScript</span>
+                      <span class="tech-tag">Python</span>
+                      <span class="tech-tag">Flask</span>
+                      <span class="tech-tag">MySQL</span>
+                      <span class="tech-tag">Bootstrap</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Projects Highlight -->
+          <div class="resume-section glass">
+            <h3 class="section-title">
+              <i class="fas fa-project-diagram"></i>
+              Key Projects
+            </h3>
+            <div class="projects-highlight">
+              <div class="project-item">
+                <h4>E-Commerce Platform</h4>
+                <p class="project-description">
+                  Full-stack e-commerce solution with payment integration,
+                  inventory management, admin dashboard, and real-time
+                  analytics.
+                </p>
+                <div class="project-tech">
+                  <span class="tech-tag">Python</span>
+                  <span class="tech-tag">Flask</span>
+                  <span class="tech-tag">React</span>
+                  <span class="tech-tag">PostgreSQL</span>
+                  <span class="tech-tag">Stripe API</span>
+                </div>
+              </div>
+              <div class="project-item">
+                <h4>Task Management App</h4>
+                <p class="project-description">
+                  Collaborative project management tool with real-time updates,
+                  team collaboration features, and progress tracking.
+                </p>
+                <div class="project-tech">
+                  <span class="tech-tag">Node.js</span>
+                  <span class="tech-tag">Socket.io</span>
+                  <span class="tech-tag">Vue.js</span>
+                  <span class="tech-tag">MongoDB</span>
+                  <span class="tech-tag">Redis</span>
+                </div>
+              </div>
+              <div class="project-item">
+                <h4>Data Analytics Dashboard</h4>
+                <p class="project-description">
+                  Interactive dashboard for data visualization with real-time
+                  metrics, reporting capabilities, and predictive analytics.
+                </p>
+                <div class="project-tech">
+                  <span class="tech-tag">Python</span>
+                  <span class="tech-tag">Dash</span>
+                  <span class="tech-tag">Plotly</span>
+                  <span class="tech-tag">PostgreSQL</span>
+                  <span class="tech-tag">AWS</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Achievements -->
+          <div class="resume-section glass">
+            <h3 class="section-title">
+              <i class="fas fa-trophy"></i>
+              Achievements
+            </h3>
+            <div class="achievements-list">
+              <div class="achievement-item">
+                <i class="fas fa-award"></i>
+                <span
+                  >Employee of the Year 2023 - Tech Innovations Pakistan</span
+                >
+              </div>
+              <div class="achievement-item">
+                <i class="fas fa-award"></i>
+                <span>Best Project Award - National Tech Competition 2022</span>
+              </div>
+              <div class="achievement-item">
+                <i class="fas fa-award"></i>
+                <span
+                  >Open Source Contributor - 50+ contributions to various
+                  projects</span
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Call to Action -->
+    <div
+      class="resume-cta text-center glass"
+      style="margin-top: 3rem; padding: 2rem"
+    >
+      <h3 style="margin-bottom: 1rem; color: var(--accent-primary)">
+        Ready to Work Together?
+      </h3>
+      <p style="margin-bottom: 2rem; color: var(--text-secondary)">
+        Let's discuss how I can help bring your next project to life with
+        innovative solutions.
+      </p>
+      <div class="cta-buttons">
+        <a href="{{ url_for('contact') }}" class="btn magnetic">
+          <i class="fas fa-paper-plane"></i> Get In Touch
+        </a>
+        <a href="{{ url_for('projects') }}" class="btn btn-outline magnetic">
+          <i class="fas fa-eye"></i> View Projects
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Download Modal -->
+<div id="download-modal" class="modal" style="display: none">
+  <div class="modal-content glass" style="max-width: 500px">
+    <div class="modal-header">
+      <h3>Download Resume - Burhan Ahmed</h3>
+      <button class="modal-close" onclick="closeDownloadModal()">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+    <div class="modal-body">
+      <p style="margin-bottom: 1.5rem; color: var(--text-secondary)">
+        Choose your preferred format:
+      </p>
+      <div class="download-options">
+        <button class="download-option" onclick="downloadPDF()">
+          <i class="fas fa-file-pdf"></i>
+          <span>PDF Format</span>
+          <small>Burhan_Ahmed_Resume.pdf</small>
+        </button>
+        <button class="download-option" onclick="downloadDOC()">
+          <i class="fas fa-file-word"></i>
+          <span>Word Document</span>
+          <small>Burhan_Ahmed_Resume.docx</small>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %} {% block scripts %}
+<script>
+  // Resume Download Functions
+  function showDownloadModal() {
+    const modal = document.getElementById("download-modal");
+    if (modal) {
+      modal.style.display = "flex";
+    }
+  }
+
+  function closeDownloadModal() {
+    const modal = document.getElementById("download-modal");
+    if (modal) {
+      modal.style.display = "none";
+    }
+  }
+
+  function downloadPDF() {
+    // Use the Flask download route with Burhan Ahmed's name
+    window.location.href =
+      "{{ url_for('download_resume') }}?format=pdf&name=Burhan_Ahmed";
+    showDownloadToast("Downloading Burhan_Ahmed_Resume.pdf...", "success");
+    closeDownloadModal();
+  }
+
+  function downloadDOC() {
+    // Use the Flask download route with Burhan Ahmed's name
+    window.location.href =
+      "{{ url_for('download_resume') }}?format=doc&name=Burhan_Ahmed";
+    showDownloadToast("Downloading Burhan_Ahmed_Resume.docx...", "success");
+    closeDownloadModal();
+  }
+
+  function printResume() {
+    // Show print dialog
+    window.print();
+  }
+
+  function showDownloadToast(message, type = "info") {
+    const toast = document.createElement("div");
+    toast.className = `toast ${type}`;
+    toast.style.cssText = `
+        position: fixed;
+        bottom: 2rem;
+        right: 2rem;
+        padding: 1rem 1.5rem;
+        background: var(--bg-glass);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: var(--border-radius);
+        color: var(--text-primary);
+        z-index: 1000;
+        animation: slideInRight 0.3s ease;
+        backdrop-filter: blur(10px);
+    `;
+    toast.textContent = message;
+
+    document.body.appendChild(toast);
+
+    setTimeout(() => {
+      if (toast.parentElement) {
+        toast.remove();
+      }
+    }, 3000);
+  }
+
+  // Modal functionality
+  document.addEventListener("DOMContentLoaded", function () {
+    const modals = document.querySelectorAll(".modal");
+
+    modals.forEach((modal) => {
+      modal.addEventListener("click", function (e) {
+        if (e.target === modal) {
+          modal.style.display = "none";
+        }
+      });
+    });
+
+    // Add animation to resume sections
+    const resumeSections = document.querySelectorAll(".resume-section");
+    resumeSections.forEach((section, index) => {
+      section.style.animationDelay = `${index * 0.1}s`;
+    });
+  });
+
+  // Print styles
+  window.addEventListener("beforeprint", function () {
+    // Add print-specific styles
+    document.body.classList.add("printing");
+  });
+
+  window.addEventListener("afterprint", function () {
+    // Remove print styles
+    document.body.classList.remove("printing");
+  });
+</script>
+
+<style>
+  /* Resume Layout */
+  .resume-layout {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 2rem;
+    margin-top: 2rem;
+  }
+
+  .resume-header {
+    margin-bottom: 3rem;
+  }
+
+  .resume-subtitle {
+    font-size: 1.3rem;
+    color: var(--text-secondary);
+    margin-bottom: 2rem;
+  }
+
+  .resume-actions {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  /* Resume Sections */
+  .resume-section {
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+    border-left: 3px solid var(--accent-primary);
+    animation: slideUp 0.6s ease forwards;
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  .resume-section .section-title {
+    font-size: 1.3rem;
+    margin-bottom: 1.5rem;
+    color: var(--accent-primary);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  /* Contact Information */
+  .contact-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .contact-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.75rem;
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: var(--border-radius);
+    transition: var(--transition);
+  }
+
+  .contact-item:hover {
+    background: rgba(255, 255, 255, 0.05);
+    transform: translateX(5px);
+  }
+
+  .contact-item i {
+    width: 20px;
+    color: var(--accent-primary);
+  }
+
+  .contact-label {
+    display: block;
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    margin-bottom: 0.25rem;
+  }
+
+  .contact-value {
+    font-weight: 500;
+    color: var(--text-primary);
+  }
+
+  /* Skills */
+  .skills-categories {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .skill-category h4 {
+    margin-bottom: 0.75rem;
+    color: var(--text-primary);
+    font-size: 1rem;
+  }
+
+  .skill-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .skill-tag {
+    background: rgba(var(--accent-primary-rgb), 0.1);
+    color: var(--accent-primary);
+    padding: 0.4rem 0.8rem;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    border: 1px solid rgba(var(--accent-primary-rgb), 0.2);
+  }
+
+  /* Education */
+  .education-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .education-item {
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .education-item:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+  }
+
+  .education-item h4 {
+    margin-bottom: 0.5rem;
+    color: var(--text-primary);
+  }
+
+  .education-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.5rem;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .education-school {
+    color: var(--accent-primary);
+    font-weight: 500;
+  }
+
+  .education-date {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+  }
+
+  .education-description {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    line-height: 1.5;
+  }
+
+  /* Certifications */
+  .certifications-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .certification-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.75rem;
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: var(--border-radius);
+    transition: var(--transition);
+  }
+
+  .certification-item:hover {
+    background: rgba(255, 255, 255, 0.05);
+  }
+
+  .certification-item h4 {
+    margin: 0;
+    font-size: 0.95rem;
+    color: var(--text-primary);
+  }
+
+  .certification-date {
+    color: var(--text-secondary);
+    font-size: 0.8rem;
+  }
+
+  /* Languages */
+  .languages-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .language-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem 0;
+  }
+
+  .language-name {
+    color: var(--text-primary);
+  }
+
+  .language-level {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+  }
+
+  /* Professional Summary */
+  .summary-content p {
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+  }
+
+  .summary-highlights {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .highlight-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    color: var(--text-secondary);
+  }
+
+  .highlight-item i {
+    color: var(--accent-primary);
+    font-size: 0.8rem;
+  }
+
+  /* Work Experience */
+  .experience-list {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  .experience-item {
+    padding-bottom: 2rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .experience-item:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+  }
+
+  .experience-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 1rem;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  .experience-title h4 {
+    margin: 0 0 0.25rem 0;
+    color: var(--text-primary);
+  }
+
+  .company {
+    color: var(--accent-primary);
+    font-weight: 500;
+  }
+
+  .experience-date {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    white-space: nowrap;
+  }
+
+  .experience-description p {
+    color: var(--text-secondary);
+    margin-bottom: 1rem;
+    line-height: 1.6;
+  }
+
+  .experience-highlights {
+    color: var(--text-secondary);
+    margin-bottom: 1.5rem;
+    padding-left: 1.5rem;
+  }
+
+  .experience-highlights li {
+    margin-bottom: 0.5rem;
+    line-height: 1.5;
+  }
+
+  .tech-used {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .tech-label {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+  }
+
+  .tech-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .tech-tag {
+    background: rgba(var(--accent-primary-rgb), 0.1);
+    color: var(--accent-primary);
+    padding: 0.3rem 0.6rem;
+    border-radius: 15px;
+    font-size: 0.8rem;
+    border: 1px solid rgba(var(--accent-primary-rgb), 0.2);
+  }
+
+  /* Projects Highlight */
+  .projects-highlight {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .project-item {
+    padding: 1rem;
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: var(--border-radius);
+    transition: var(--transition);
+  }
+
+  .project-item:hover {
+    background: rgba(255, 255, 255, 0.05);
+    transform: translateY(-2px);
+  }
+
+  .project-item h4 {
+    margin: 0 0 0.5rem 0;
+    color: var(--text-primary);
+  }
+
+  .project-description {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    line-height: 1.5;
+    margin-bottom: 1rem;
+  }
+
+  .project-tech {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  /* Achievements */
+  .achievements-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .achievement-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.75rem;
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: var(--border-radius);
+    transition: var(--transition);
+  }
+
+  .achievement-item:hover {
+    background: rgba(255, 255, 255, 0.05);
+  }
+
+  .achievement-item i {
+    color: var(--accent-primary);
+  }
+
+  /* Download Options */
+  .download-options {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+
+  .download-option {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1.5rem 1rem;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: var(--border-radius);
+    color: var(--text-primary);
+    cursor: pointer;
+    transition: var(--transition);
+    text-align: center;
+  }
+
+  .download-option:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: var(--accent-primary);
+    transform: translateY(-2px);
+  }
+
+  .download-option i {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+    color: var(--accent-primary);
+  }
+
+  .download-option span {
+    font-weight: 600;
+    margin-bottom: 0.25rem;
+  }
+
+  .download-option small {
+    color: var(--text-secondary);
+    font-size: 0.8rem;
+  }
+
+  /* CTA Buttons */
+  .cta-buttons {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  /* Print Styles */
+  @media print {
+    .navbar,
+    .footer,
+    .resume-actions,
+    .resume-cta,
+    .chat-widget {
+      display: none !important;
+    }
+
+    .resume-layout {
+      grid-template-columns: 1fr 2fr;
+      gap: 1rem;
+    }
+
+    .resume-section {
+      break-inside: avoid;
+      border: 1px solid #ddd;
+      box-shadow: none;
+      background: white !important;
+      color: black !important;
+    }
+
+    body {
+      background: white !important;
+      color: black !important;
+    }
+
+    .container {
+      max-width: none;
+      padding: 0;
+    }
+
+    .section {
+      padding: 0;
+    }
+  }
+
+  /* Responsive Design */
+  @media (max-width: 968px) {
+    .resume-layout {
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
+
+    .resume-actions {
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .resume-actions .btn {
+      width: 200px;
+    }
+
+    .experience-header {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.5rem;
+    }
+
+    .tech-used {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.5rem;
+    }
+
+    .download-options {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .resume-section {
+      padding: 1rem;
+    }
+
+    .education-meta {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.25rem;
+    }
+
+    .certification-item {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.5rem;
+    }
+
+    .cta-buttons {
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .cta-buttons .btn {
+      width: 200px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .resume-header {
+      margin-bottom: 2rem;
+    }
+
+    .resume-subtitle {
+      font-size: 1.1rem;
+    }
+
+    .contact-item {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.5rem;
+      text-align: left;
+    }
+
+    .skill-tags {
+      justify-content: center;
+    }
+  }
+
+  /* Animations */
+  @keyframes slideUp {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Utility Classes */
+  .text-center {
+    text-align: center;
+  }
+
+  .mb-2 {
+    margin-bottom: 2rem;
+  }
+
+  .mt-2 {
+    margin-top: 2rem;
+  }
+</style>
+{% endblock %}

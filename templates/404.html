@@ -1,0 +1,627 @@
+{% extends "base.html" %} {% block title %}Page Not Found - Portfolio{% endblock
+%} {% block content %}
+<section class="section error-section">
+  <div class="container">
+    <div class="error-content text-center">
+      <!-- Animated 404 Number -->
+      <div class="error-number">
+        <span class="number-4">4</span>
+        <div class="floating-orb">
+          <div class="orb-glow"></div>
+          <span class="number-0">0</span>
+        </div>
+        <span class="number-4">4</span>
+      </div>
+
+      <!-- Error Message -->
+      <div class="error-message glass">
+        <div class="error-icon">
+          <i class="fas fa-search"></i>
+        </div>
+        <h1 class="error-title">Page Not Found</h1>
+        <p class="error-description">
+          The page you're looking for seems to have wandered off into the
+          digital void. It might have been moved, deleted, or perhaps never
+          existed in this reality.
+        </p>
+
+        <!-- Quick Actions -->
+        <div class="error-actions">
+          <a href="{{ url_for('index') }}" class="btn magnetic">
+            <i class="fas fa-home"></i> Back to Home
+          </a>
+          <a href="{{ url_for('projects') }}" class="btn btn-outline magnetic">
+            <i class="fas fa-project-diagram"></i> View Projects
+          </a>
+          <button onclick="history.back()" class="btn btn-outline magnetic">
+            <i class="fas fa-arrow-left"></i> Go Back
+          </button>
+        </div>
+
+        <!-- Search Suggestion -->
+        <div class="search-suggestion">
+          <p>Or try searching for what you need:</p>
+          <form action="{{ url_for('blog') }}" method="get" class="search-form">
+            <div class="search-input-group">
+              <input
+                type="text"
+                name="search"
+                placeholder="Search blog posts..."
+                class="form-control"
+              />
+              <button type="submit" class="search-btn">
+                <i class="fas fa-search"></i>
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <!-- Navigation Help -->
+      <div class="navigation-help">
+        <h3>Quick Navigation</h3>
+        <div class="help-links">
+          <a href="{{ url_for('projects') }}" class="help-link">
+            <i class="fas fa-code"></i>
+            <span>Projects</span>
+          </a>
+          <a href="{{ url_for('blog') }}" class="help-link">
+            <i class="fas fa-blog"></i>
+            <span>Blog</span>
+          </a>
+          <a href="{{ url_for('contact') }}" class="help-link">
+            <i class="fas fa-envelope"></i>
+            <span>Contact</span>
+          </a>
+          <a href="{{ url_for('resume') }}" class="help-link">
+            <i class="fas fa-file-alt"></i>
+            <span>Resume</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %} {% block scripts %}
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    // Add floating animation to the zero
+    gsap.to(".floating-orb", {
+      y: -20,
+      duration: 2,
+      repeat: -1,
+      yoyo: true,
+      ease: "sine.inOut",
+    });
+
+    // Pulse animation for the orb glow
+    gsap.to(".orb-glow", {
+      scale: 1.2,
+      opacity: 0.8,
+      duration: 1.5,
+      repeat: -1,
+      yoyo: true,
+      ease: "power2.inOut",
+    });
+
+    // Stagger animation for numbers
+    gsap.from(".number-4, .number-0", {
+      duration: 1,
+      y: 100,
+      opacity: 0,
+      stagger: 0.2,
+      ease: "back.out(1.7)",
+    });
+
+    // Slide up animation for content
+    gsap.from(".error-message, .navigation-help", {
+      duration: 0.8,
+      y: 50,
+      opacity: 0,
+      delay: 0.5,
+      stagger: 0.2,
+      ease: "power2.out",
+    });
+  });
+</script>
+{% endblock %}
+
+<!-- 404.html - Page Not Found -->
+<style>
+  /* 404 Page Styles */
+  .error-section {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem 0;
+    background: linear-gradient(
+      135deg,
+      rgba(10, 25, 47, 0.95) 0%,
+      rgba(17, 34, 64, 0.95) 100%
+    );
+  }
+
+  .error-content {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 2rem;
+  }
+
+  .error-number {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1.5rem;
+    margin-bottom: 3rem;
+    font-size: clamp(5rem, 20vw, 14rem);
+    font-weight: 900;
+    font-family: "Segoe UI", system-ui, sans-serif;
+  }
+
+  .number-4,
+  .number-0 {
+    display: inline-block;
+    background: linear-gradient(135deg, #00d9ff, #0080ff);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 0 0 40px rgba(0, 217, 255, 0.4),
+      0 0 80px rgba(0, 128, 255, 0.2);
+    animation: numberGlow 3s ease-in-out infinite alternate;
+  }
+
+  .floating-orb {
+    position: relative;
+    display: inline-block;
+    animation: float 6s ease-in-out infinite;
+  }
+
+  .orb-glow {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 130%;
+    height: 130%;
+    background: radial-gradient(
+      circle at center,
+      rgba(0, 217, 255, 0.6) 0%,
+      rgba(0, 128, 255, 0.3) 40%,
+      transparent 70%
+    );
+    border-radius: 50%;
+    filter: blur(25px);
+    animation: orbPulse 4s ease-in-out infinite;
+  }
+
+  .error-message {
+    background: var(--bg-glass);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(0, 217, 255, 0.1);
+    border-radius: 24px;
+    padding: 3rem 2.5rem;
+    text-align: center;
+    margin-bottom: 3rem;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3), 0 0 100px rgba(0, 217, 255, 0.1),
+      inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    transform: translateY(0);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .error-message:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 25px 80px rgba(0, 0, 0, 0.4),
+      0 0 120px rgba(0, 217, 255, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  }
+
+  .error-icon {
+    font-size: 5rem;
+    margin-bottom: 1.5rem;
+    color: #00d9ff;
+    animation: iconSearch 2s ease-in-out infinite;
+    filter: drop-shadow(0 0 15px rgba(0, 217, 255, 0.5));
+  }
+
+  .error-title {
+    font-size: 2.8rem;
+    margin-bottom: 1.2rem;
+    background: linear-gradient(135deg, #00d9ff, #0080ff);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+  }
+
+  .error-description {
+    font-size: 1.3rem;
+    color: rgba(255, 255, 255, 0.8);
+    margin-bottom: 2.5rem;
+    line-height: 1.7;
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+    font-weight: 400;
+  }
+
+  .error-actions {
+    display: flex;
+    gap: 1.2rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: 2.5rem;
+  }
+
+  .search-suggestion {
+    margin-top: 2.5rem;
+    padding-top: 2.5rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  .search-suggestion p {
+    color: rgba(255, 255, 255, 0.7);
+    margin-bottom: 1.2rem;
+    font-size: 1.1rem;
+  }
+
+  .search-form {
+    max-width: 500px;
+    margin: 0 auto;
+  }
+
+  .search-input-group {
+    display: flex;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 16px;
+    overflow: hidden;
+    border: 1px solid rgba(0, 217, 255, 0.2);
+    transition: all 0.3s ease;
+  }
+
+  .search-input-group:focus-within {
+    border-color: #00d9ff;
+    box-shadow: 0 0 30px rgba(0, 217, 255, 0.2);
+  }
+
+  .search-input-group .form-control {
+    flex: 1;
+    background: transparent;
+    border: none;
+    padding: 1.2rem 1.5rem;
+    color: white;
+    font-size: 1.1rem;
+    outline: none;
+  }
+
+  .search-input-group .form-control::placeholder {
+    color: rgba(255, 255, 255, 0.5);
+  }
+
+  .search-btn {
+    background: linear-gradient(135deg, #00d9ff, #0080ff);
+    border: none;
+    padding: 0 2rem;
+    color: #000;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .search-btn:hover {
+    background: linear-gradient(135deg, #00b8e6, #0066cc);
+    transform: scale(1.05);
+  }
+
+  .navigation-help {
+    background: var(--bg-glass);
+    backdrop-filter: blur(10px);
+    border-radius: 24px;
+    padding: 2.5rem;
+    text-align: center;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  .navigation-help h3 {
+    font-size: 1.8rem;
+    margin-bottom: 2rem;
+    color: white;
+    font-weight: 600;
+  }
+
+  .help-links {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.2rem;
+  }
+
+  .help-link {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2rem 1rem;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 16px;
+    text-decoration: none;
+    color: rgba(255, 255, 255, 0.8);
+    transition: all 0.3s ease;
+    border: 1px solid transparent;
+  }
+
+  .help-link:hover {
+    background: rgba(0, 217, 255, 0.1);
+    color: #00d9ff;
+    border-color: rgba(0, 217, 255, 0.3);
+    transform: translateY(-8px);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3), 0 0 50px rgba(0, 217, 255, 0.1);
+  }
+
+  .help-link i {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    transition: all 0.3s ease;
+  }
+
+  .help-link:hover i {
+    transform: scale(1.2);
+    filter: drop-shadow(0 0 10px rgba(0, 217, 255, 0.5));
+  }
+
+  .help-link span {
+    font-size: 1.1rem;
+    font-weight: 600;
+  }
+
+  /* Animations */
+  @keyframes float {
+    0%,
+    100% {
+      transform: translateY(0px);
+    }
+    50% {
+      transform: translateY(-30px);
+    }
+  }
+
+  @keyframes orbPulse {
+    0%,
+    100% {
+      opacity: 0.7;
+      transform: translate(-50%, -50%) scale(1);
+    }
+    50% {
+      opacity: 0.9;
+      transform: translate(-50%, -50%) scale(1.1);
+    }
+  }
+
+  @keyframes numberGlow {
+    0% {
+      text-shadow: 0 0 40px rgba(0, 217, 255, 0.4),
+        0 0 80px rgba(0, 128, 255, 0.2);
+    }
+    100% {
+      text-shadow: 0 0 60px rgba(0, 217, 255, 0.6),
+        0 0 100px rgba(0, 128, 255, 0.4), 0 0 150px rgba(0, 128, 255, 0.2);
+    }
+  }
+
+  @keyframes iconSearch {
+    0%,
+    100% {
+      transform: translateX(0) rotate(0deg);
+    }
+    25% {
+      transform: translateX(-5px) rotate(-5deg);
+    }
+    75% {
+      transform: translateX(5px) rotate(5deg);
+    }
+  }
+
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .error-number {
+      font-size: clamp(4rem, 25vw, 10rem);
+      gap: 1rem;
+    }
+
+    .error-content {
+      padding: 1.5rem;
+    }
+
+    .error-message {
+      padding: 2rem 1.5rem;
+    }
+
+    .error-actions {
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .error-actions .btn {
+      width: 100%;
+      max-width: 300px;
+    }
+
+    .help-links {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .navigation-help {
+      padding: 2rem 1.5rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .error-number {
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .floating-orb {
+      margin: 1rem 0;
+    }
+
+    .error-title {
+      font-size: 2.2rem;
+    }
+
+    .error-description {
+      font-size: 1.1rem;
+    }
+
+    .help-links {
+      grid-template-columns: 1fr;
+    }
+
+    .search-btn {
+      padding: 0 1.5rem;
+    }
+  }
+
+  /* 404 Page - Button and Link Styles */
+  .error-actions .btn {
+    padding: 1.2rem 2.5rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+    border-radius: 16px;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.8rem;
+    position: relative;
+    overflow: hidden;
+    min-width: 180px;
+  }
+
+  .error-actions .btn.magnetic {
+    background: linear-gradient(135deg, #00d9ff, #0080ff);
+    color: #000;
+    border: none;
+    box-shadow: 0 10px 30px rgba(0, 217, 255, 0.3),
+      0 0 40px rgba(0, 128, 255, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+  }
+
+  .error-actions .btn.magnetic:hover {
+    background: linear-gradient(135deg, #00c3e6, #0073e6);
+    transform: translateY(-5px) scale(1.05);
+    box-shadow: 0 20px 50px rgba(0, 217, 255, 0.4),
+      0 0 60px rgba(0, 128, 255, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.4);
+  }
+
+  .error-actions .btn.magnetic:active {
+    transform: translateY(-2px) scale(1.02);
+    box-shadow: 0 5px 20px rgba(0, 217, 255, 0.4),
+      inset 0 2px 0 rgba(255, 255, 255, 0.3);
+  }
+
+  .error-actions .btn.btn-outline.magnetic {
+    background: transparent;
+    color: #00d9ff;
+    border: 2px solid #00d9ff;
+    box-shadow: 0 0 20px rgba(0, 217, 255, 0.2),
+      inset 0 0 20px rgba(0, 217, 255, 0.1);
+  }
+
+  .error-actions .btn.btn-outline.magnetic:hover {
+    background: rgba(0, 217, 255, 0.1);
+    color: #00d9ff;
+    border-color: #00d9ff;
+    transform: translateY(-5px);
+    box-shadow: 0 15px 40px rgba(0, 217, 255, 0.3),
+      0 0 40px rgba(0, 217, 255, 0.2), inset 0 0 30px rgba(0, 217, 255, 0.2);
+  }
+
+  .error-actions .btn.btn-outline.magnetic:active {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 20px rgba(0, 217, 255, 0.3),
+      inset 0 0 20px rgba(0, 217, 255, 0.1);
+  }
+
+  /* Search Button */
+  .search-btn {
+    background: linear-gradient(135deg, #00d9ff, #0080ff);
+    border: none;
+    padding: 0 2rem;
+    color: #000;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    font-size: 1rem;
+  }
+
+  .search-btn:hover {
+    background: linear-gradient(135deg, #00b8e6, #0066cc);
+    transform: scale(1.05);
+    box-shadow: 0 0 30px rgba(0, 217, 255, 0.4);
+  }
+
+  .search-btn:active {
+    transform: scale(0.98);
+  }
+
+  /* Help Links */
+  .help-link {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2rem 1rem;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 16px;
+    text-decoration: none;
+    color: rgba(255, 255, 255, 0.8);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    border: 1px solid transparent;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .help-link::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, #00d9ff, #0080ff);
+    transform: translateY(-100%);
+    transition: transform 0.4s ease;
+  }
+
+  .help-link:hover {
+    background: rgba(0, 217, 255, 0.1);
+    color: #00d9ff;
+    border-color: rgba(0, 217, 255, 0.3);
+    transform: translateY(-8px);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3), 0 0 50px rgba(0, 217, 255, 0.1);
+  }
+
+  .help-link:hover::before {
+    transform: translateY(0);
+  }
+
+  .help-link:hover i {
+    transform: scale(1.2);
+    filter: drop-shadow(0 0 10px rgba(0, 217, 255, 0.5));
+  }
+
+  .help-link i {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    transition: all 0.3s ease;
+  }
+
+  .help-link span {
+    font-size: 1.1rem;
+    font-weight: 600;
+  }
+</style>

@@ -1,0 +1,395 @@
+{% extends "base.html" %} {% block title %}Home - Portfolio{% endblock %} {%
+block content %}
+<!-- Hero Section -->
+<section class="hero">
+  <div class="hero-content">
+    <h1 class="hero-title">
+      Hi, I'm <span class="gradient-text">John Doe</span>
+    </h1>
+    <p class="hero-subtitle">
+      I'm a
+      <span
+        id="typing-text"
+        data-texts='["Full Stack Developer", "Python Expert", "UI/UX Enthusiast", "Problem Solver"]'
+      ></span>
+    </p>
+    <div class="hero-buttons">
+      <a href="#projects" class="btn btn-primary magnetic">View My Work</a>
+      <a href="{{ url_for('resume') }}" class="btn btn-secondary magnetic"
+        >View Resume</a
+      >
+      <a href="{{ url_for('contact') }}" class="btn btn-outline magnetic"
+        >Get In Touch</a
+      >
+    </div>
+  </div>
+</section>
+
+<!-- About Section -->
+<section id="about" class="section">
+  <div class="container">
+    <h2 class="section-title">About Me</h2>
+    <div class="about-grid">
+      <div class="about-image">
+        <div class="image-container">
+          <img
+            src="{{ url_for('static', filename='images/admin.jpg') }}"
+            alt="John Doe"
+            class="admin-image"
+          />
+          <div class="image-overlay">
+            <div class="overlay-content">
+              <h3>John Doe</h3>
+              <p>Full Stack Developer</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="about-content">
+        <p class="about-text">
+          I'm a passionate full-stack developer with expertise in Python, Flask,
+          and modern web technologies. I love creating beautiful, functional
+          applications that solve real-world problems.
+        </p>
+        <div class="skills-grid">
+          {% for skill in skills %}
+          <div class="skill-item">
+            <span class="skill-name">{{ skill.name }}</span>
+            <div class="skill-bar-container">
+              <div
+                class="skill-bar"
+                style="width: {{ skill.proficiency }}%"
+              ></div>
+            </div>
+            <span class="skill-percentage">{{ skill.proficiency }}%</span>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Resume CTA Section -->
+<section id="resume-cta" class="section">
+  <div class="container">
+    <div class="resume-cta-card card text-center">
+      <div class="resume-cta-content">
+        <!-- Main Title Block -->
+        <div class="title-block">
+          <h2 class="section-title">Professional Resume</h2>
+        </div>
+
+        <!-- Subtitle Blocks -->
+        <div class="subtitle-block">
+          <p class="section-subtitle">
+            Download my complete resume to explore my professional journey
+          </p>
+        </div>
+
+        <div class="subtitle-block">
+          <p class="section-subtitle">
+            technical expertise, and career achievements in detail.
+          </p>
+        </div>
+
+        <!-- Achievement Stats -->
+        <div class="resume-stats">
+          <div class="resume-stat stat-1">
+            <div class="stat-content">
+              <span class="stat-number">3+</span>
+              <span class="stat-label">Years Experience</span>
+            </div>
+          </div>
+          <div class="resume-stat stat-2">
+            <div class="stat-content">
+              <span class="stat-number">50+</span>
+              <span class="stat-label">Projects Completed</span>
+            </div>
+          </div>
+          <div class="resume-stat stat-3">
+            <div class="stat-content">
+              <span class="stat-number">20+</span>
+              <span class="stat-label">Happy Clients</span>
+            </div>
+          </div>
+          <div class="resume-stat stat-4">
+            <div class="stat-content">
+              <span class="stat-number">10+</span>
+              <span class="stat-label">Technologies</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Features Grid -->
+        <div class="resume-features">
+          <div class="resume-feature feature-1">
+            <div class="feature-content">
+              <i class="fas fa-briefcase"></i>
+              <span>Work Experience</span>
+            </div>
+          </div>
+          <div class="resume-feature feature-2">
+            <div class="feature-content">
+              <i class="fas fa-graduation-cap"></i>
+              <span>Education</span>
+            </div>
+          </div>
+          <div class="resume-feature feature-3">
+            <div class="feature-content">
+              <i class="fas fa-code"></i>
+              <span>Technical Skills</span>
+            </div>
+          </div>
+          <div class="resume-feature feature-4">
+            <div class="feature-content">
+              <i class="fas fa-certificate"></i>
+              <span>Certifications</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- CTA Buttons -->
+        <div class="resume-actions">
+          <a href="{{ url_for('resume') }}" class="btn btn-primary magnetic">
+            <i class="fas fa-download"></i> Download Resume
+          </a>
+          <a href="{{ url_for('contact') }}" class="btn btn-secondary magnetic">
+            <i class="fas fa-envelope"></i> Hire Me
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Projects Section -->
+<section id="projects" class="section">
+  <div class="container">
+    <h2 class="section-title">Featured Projects</h2>
+    <div class="projects-grid">
+      {% for project in projects %}
+      <div class="project-card card floating">
+        {% if project.image_url %}
+        <img
+          src="{{ url_for('static', filename=project.image_url) }}"
+          alt="{{ project.title }}"
+          class="project-image"
+        />
+        {% endif %}
+        <div class="project-content">
+          <h3 class="project-title">{{ project.title }}</h3>
+          <p class="project-description">{{ project.description }}</p>
+          <div class="project-tech">
+            {% for tech in project.technologies.split(',') %}
+            <span class="tech-tag">{{ tech.strip() }}</span>
+            {% endfor %}
+          </div>
+          <div class="project-links">
+            {% if project.github_url %}
+            <a
+              href="{{ project.github_url }}"
+              class="project-link"
+              target="_blank"
+            >
+              <i class="fab fa-github"></i> Code
+            </a>
+            {% endif %} {% if project.live_url %}
+            <a
+              href="{{ project.live_url }}"
+              class="project-link"
+              target="_blank"
+            >
+              <i class="fas fa-external-link-alt"></i> Live Demo
+            </a>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+    <div class="text-center">
+      <a href="{{ url_for('projects') }}" class="btn btn-primary magnetic"
+        >View All Projects</a
+      >
+    </div>
+  </div>
+</section>
+
+<!-- Testimonials Section -->
+<section id="testimonials" class="section">
+  <div class="container">
+    <h2 class="section-title">What Clients Say</h2>
+    <div class="testimonials-slider">
+      {% for testimonial in testimonials %}
+      <div class="testimonial-card card">
+        <div class="testimonial-content">
+          <p>"{{ testimonial.content }}"</p>
+        </div>
+        <div class="testimonial-author">
+          <strong>{{ testimonial.client_name }}</strong>
+          {% if testimonial.company %}
+          <span>, {{ testimonial.company }}</span>
+          {% endif %}
+        </div>
+        <div class="testimonial-rating">
+          {% for i in range(testimonial.rating) %}
+          <i class="fas fa-star"></i>
+          {% endfor %}
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<!-- Blog Section -->
+<section id="blog" class="section">
+  <div class="container">
+    <h2 class="section-title">Latest Blog Posts</h2>
+    <div class="blog-grid">
+      {% for post in blog_posts %}
+      <article class="blog-card card">
+        <div class="blog-content">
+          <h3 class="blog-title">
+            <a href="{{ url_for('blog_post', slug=post.slug) }}"
+              >{{ post.title }}</a
+            >
+          </h3>
+          <p class="blog-excerpt">
+            {{ post.excerpt or post.content[:150] + '...' }}
+          </p>
+          <div class="blog-meta">
+            <span class="blog-date">
+              <i class="fas fa-calendar"></i>
+              {{ post.created_at.strftime('%b %d, %Y') }}
+            </span>
+            <span class="blog-views">
+              <i class="fas fa-eye"></i>
+              {{ post.views }} views
+            </span>
+          </div>
+        </div>
+      </article>
+      {% endfor %}
+    </div>
+    <div class="text-center">
+      <a href="{{ url_for('blog') }}" class="btn btn-outline magnetic"
+        >Read All Posts</a
+      >
+    </div>
+  </div>
+</section>
+
+<!-- Contact CTA -->
+<section id="contact-cta" class="section">
+  <div class="container text-center">
+    <h2 class="section-title">Ready to Start Your Project?</h2>
+    <p class="section-subtitle">
+      Let's work together to bring your ideas to life
+    </p>
+    <div class="cta-buttons">
+      <a href="{{ url_for('contact') }}" class="btn btn-primary pulse magnetic"
+        >Get In Touch</a
+      >
+      <a href="{{ url_for('resume') }}" class="btn btn-outline magnetic"
+        >View Resume First</a
+      >
+    </div>
+  </div>
+</section>
+{% endblock %} {% block styles %}
+<style>
+  /* ===== BUTTON VISIBILITY FIXES ===== */
+  .btn {
+    opacity: 1 !important;
+    visibility: visible !important;
+    display: inline-flex !important;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 1rem 2rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+    text-decoration: none;
+    border-radius: 12px;
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .btn-primary {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border: none;
+    color: white;
+    box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+  }
+
+  .btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 15px 35px rgba(102, 126, 234, 0.4);
+  }
+
+  .btn-secondary {
+    background: rgba(255, 255, 255, 0.1);
+    border: 2px solid rgba(124, 58, 237, 0.3);
+    color: var(--text-primary);
+  }
+
+  .btn-secondary:hover {
+    background: rgba(124, 58, 237, 0.1);
+    border-color: rgba(124, 58, 237, 0.6);
+    transform: translateY(-2px);
+  }
+
+  .btn-outline {
+    background: transparent;
+    border: 2px solid rgba(124, 58, 237, 0.3);
+    color: var(--text-primary);
+  }
+
+  .btn-outline:hover {
+    background: rgba(124, 58, 237, 0.1);
+    border-color: rgba(124, 58, 237, 0.6);
+    transform: translateY(-2px);
+  }
+
+  .hero-buttons,
+  .resume-actions,
+  .cta-buttons {
+    opacity: 1 !important;
+    visibility: visible !important;
+    display: flex !important;
+    gap: 1rem;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+  }
+
+  /* Utility classes */
+  .text-center {
+    text-align: center;
+  }
+
+  .section {
+    padding: 5rem 0;
+  }
+
+  .section-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 3rem;
+    color: var(--text-primary);
+  }
+
+  .gradient-text {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+</style>
+{% endblock %}

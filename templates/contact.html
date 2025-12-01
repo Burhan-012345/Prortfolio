@@ -1,0 +1,450 @@
+{% extends "base.html" %} {% block title %}Contact - Portfolio{% endblock %} {%
+block content %}
+<section class="section">
+  <div class="container">
+    <!-- Flash Messages -->
+    {% with messages = get_flashed_messages(with_categories=true) %} {% if
+    messages %} {% for category, message in messages %}
+    <div class="flash-message {{ category }}">{{ message }}</div>
+    {% endfor %} {% endif %} {% endwith %}
+
+    <div class="contact-grid">
+      <div class="contact-info">
+        <h1 class="page-title">Get In Touch</h1>
+        <p class="contact-description">
+          I'm always interested in hearing about new opportunities and projects.
+          Let's discuss how we can work together to bring your ideas to life.
+        </p>
+
+        <div class="contact-methods">
+          <div class="contact-method">
+            <i class="fas fa-envelope"></i>
+            <div>
+              <h3>Email</h3>
+              <p>{{ get_setting('contact_email', 'hello@portfolio.com') }}</p>
+            </div>
+          </div>
+          <div class="contact-method">
+            <i class="fas fa-phone"></i>
+            <div>
+              <h3>Phone</h3>
+              <p>{{ get_setting('contact_phone', '+1 (555) 123-4567') }}</p>
+            </div>
+          </div>
+          <div class="contact-method">
+            <i class="fas fa-map-marker-alt"></i>
+            <div>
+              <h3>Location</h3>
+              <p>{{ get_setting('contact_location', 'New York, NY') }}</p>
+            </div>
+          </div>
+          <div class="contact-method">
+            <i class="fas fa-clock"></i>
+            <div>
+              <h3>Response Time</h3>
+              <p>Within 24 hours</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Additional Contact Info -->
+        <div
+          class="contact-extra glass"
+          style="margin-top: 2rem; padding: 1.5rem"
+        >
+          <h4 style="margin-bottom: 1rem; color: var(--accent-primary)">
+            Why Work With Me?
+          </h4>
+          <div class="benefits-list">
+            <div class="benefit-item">
+              <i
+                class="fas fa-check-circle"
+                style="color: var(--accent-primary)"
+              ></i>
+              <span>Quick response time</span>
+            </div>
+            <div class="benefit-item">
+              <i
+                class="fas fa-check-circle"
+                style="color: var(--accent-primary)"
+              ></i>
+              <span>Professional communication</span>
+            </div>
+            <div class="benefit-item">
+              <i
+                class="fas fa-check-circle"
+                style="color: var(--accent-primary)"
+              ></i>
+              <span>Detailed project proposals</span>
+            </div>
+            <div class="benefit-item">
+              <i
+                class="fas fa-check-circle"
+                style="color: var(--accent-primary)"
+              ></i>
+              <span>Flexible collaboration</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="contact-form-container glass">
+        <h2
+          style="
+            margin-bottom: 2rem;
+            text-align: center;
+            color: var(--accent-primary);
+          "
+        >
+          Send a Message
+        </h2>
+
+        <!-- FIXED: Added proper form action and simplified JavaScript -->
+        <form
+          id="contact-form"
+          method="POST"
+          action="{{ url_for('contact') }}"
+          class="contact-form"
+        >
+          {{ form.hidden_tag() }}
+
+          <div class="form-group">
+            {{ form.name.label(class="form-label") }} {{ form.name( id="name",
+            class="form-control", placeholder="Enter your full name" ) }} {% for
+            error in form.name.errors %}
+            <span class="form-error">{{ error }}</span>
+            {% endfor %}
+          </div>
+
+          <div class="form-group">
+            {{ form.email.label(class="form-label") }} {{ form.email(
+            id="email", class="form-control",
+            placeholder="your.email@example.com" ) }} {% for error in
+            form.email.errors %}
+            <span class="form-error">{{ error }}</span>
+            {% endfor %}
+          </div>
+
+          <div class="form-group">
+            {{ form.subject.label(class="form-label") }} {{ form.subject(
+            id="subject", class="form-control", placeholder="What is this
+            regarding?" ) }} {% for error in form.subject.errors %}
+            <span class="form-error">{{ error }}</span>
+            {% endfor %}
+          </div>
+
+          <div class="form-group">
+            {{ form.message.label(class="form-label") }} {{ form.message(
+            id="message", class="form-control", rows="6", placeholder="Tell me
+            about your project, timeline, and budget..." ) }} {% for error in
+            form.message.errors %}
+            <span class="form-error">{{ error }}</span>
+            {% endfor %}
+          </div>
+
+          <!-- Submit Button - Fixed -->
+          <div class="form-actions" style="margin-top: 2rem">
+            <button
+              type="submit"
+              class="btn btn-full magnetic"
+              style="padding: 1rem 2rem; font-size: 1.1rem"
+              id="submit-button"
+            >
+              <i class="fas fa-paper-plane"></i> Send Message
+            </button>
+          </div>
+
+          <!-- Form Status -->
+          <div
+            id="form-status"
+            style="margin-top: 1rem; text-align: center"
+          ></div>
+        </form>
+
+        <!-- Alternative Contact Methods -->
+        <div
+          class="alternative-contact"
+          style="
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+          "
+        >
+          <h4
+            style="
+              text-align: center;
+              margin-bottom: 1rem;
+              color: var(--text-secondary);
+            "
+          >
+            Prefer other methods?
+          </h4>
+          <div
+            class="alternative-buttons"
+            style="display: flex; gap: 1rem; justify-content: center"
+          >
+            <a
+              href="mailto:{{ get_setting('contact_email', 'hello@portfolio.com') }}"
+              class="btn btn-outline btn-small"
+            >
+              <i class="fas fa-envelope"></i> Email Directly
+            </a>
+            <a
+              href="#"
+              class="btn btn-outline btn-small"
+              onclick="alert('Schedule a meeting functionality would go here')"
+            >
+              <i class="fas fa-calendar"></i> Schedule Meeting
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %} {% block scripts %}
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const contactForm = document.getElementById("contact-form");
+    const formStatus = document.getElementById("form-status");
+    const submitBtn = document.getElementById("submit-button");
+
+    // Store original button content
+    const originalBtnContent = submitBtn.innerHTML;
+
+    // Form submission handling - SIMPLIFIED
+    contactForm.addEventListener("submit", function (e) {
+      // Show loading state but allow default form submission
+      submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
+      submitBtn.disabled = true;
+      formStatus.innerHTML =
+        '<p style="color: var(--accent-primary)">Sending your message...</p>';
+
+      // Let the form submit normally to Flask backend
+      // Flask will handle validation and redirect
+    });
+
+    // Character counter for message field
+    const messageField = document.getElementById("message");
+    if (messageField) {
+      const charCounter = document.createElement("div");
+      charCounter.className = "char-counter";
+      charCounter.style.textAlign = "right";
+      charCounter.style.marginTop = "0.5rem";
+      charCounter.style.color = "var(--text-secondary)";
+      charCounter.style.fontSize = "0.8rem";
+      messageField.parentNode.appendChild(charCounter);
+
+      messageField.addEventListener("input", function () {
+        const length = this.value.length;
+        charCounter.textContent = `${length}/2000 characters`;
+
+        if (length > 1800) {
+          charCounter.style.color = "#ff3366";
+        } else if (length > 1500) {
+          charCounter.style.color = "var(--accent-tertiary)";
+        } else {
+          charCounter.style.color = "var(--text-secondary)";
+        }
+      });
+
+      // Initialize counter
+      charCounter.textContent = `${messageField.value.length}/2000 characters`;
+    }
+
+    // Reset button state if page is refreshed
+    window.addEventListener("beforeunload", function () {
+      submitBtn.innerHTML = originalBtnContent;
+      submitBtn.disabled = false;
+    });
+  });
+
+  // Show success modal if there's a success flash message
+  document.addEventListener("DOMContentLoaded", function () {
+    const successMessages = document.querySelectorAll(".flash-message.success");
+    if (successMessages.length > 0) {
+      // Scroll to show the success message
+      successMessages[0].scrollIntoView({
+        behavior: "smooth",
+        block: "center",
+      });
+    }
+  });
+</script>
+
+<style>
+  /* Additional Styles for Contact Page */
+  .contact-extra {
+    border-left: 4px solid var(--accent-primary);
+  }
+
+  .benefits-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .benefit-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    color: var(--text-secondary);
+  }
+
+  .benefit-item i {
+    font-size: 0.9rem;
+  }
+
+  .alternative-buttons {
+    flex-wrap: wrap;
+  }
+
+  .char-counter {
+    transition: color 0.3s ease;
+  }
+
+  /* Fix for submit button visibility */
+  .form-actions {
+    position: relative;
+    z-index: 100;
+  }
+
+  #submit-button {
+    animation: none !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    display: flex !important;
+    transform: none !important;
+  }
+
+  /* Flash messages styling */
+  .flash-message {
+    padding: 1rem 1.5rem;
+    border-radius: 8px;
+    margin: 1rem 0;
+    text-align: center;
+    font-weight: 500;
+    border: 1px solid;
+  }
+
+  .flash-message.success {
+    background: rgba(0, 255, 157, 0.1);
+    border-color: rgba(0, 255, 157, 0.3);
+    color: #00ff9d;
+  }
+
+  .flash-message.error {
+    background: rgba(255, 51, 102, 0.1);
+    border-color: rgba(255, 51, 102, 0.3);
+    color: #ff3366;
+  }
+
+  .flash-message.warning {
+    background: rgba(255, 193, 7, 0.1);
+    border-color: rgba(255, 193, 7, 0.3);
+    color: #ffc107;
+  }
+
+  /* Form styles */
+  .form-group {
+    position: relative;
+    margin-bottom: 1.5rem;
+  }
+
+  .form-label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: var(--text-primary);
+    font-weight: 500;
+  }
+
+  .form-control {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.05);
+    color: var(--text-primary);
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    font-family: inherit;
+  }
+
+  .form-control:focus {
+    outline: none;
+    border-color: var(--accent-primary);
+    box-shadow: 0 0 0 2px rgba(0, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.08);
+  }
+
+  textarea.form-control {
+    resize: vertical;
+    min-height: 120px;
+    font-family: inherit;
+  }
+
+  .form-error {
+    color: #ff3366;
+    font-size: 0.875rem;
+    margin-top: 0.25rem;
+    display: block;
+  }
+
+  /* Button states */
+  .btn:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+    transform: none !important;
+  }
+
+  .btn:disabled:hover {
+    box-shadow: none;
+  }
+
+  /* Loading animation */
+  .fa-spinner {
+    animation: spin 1s linear infinite;
+  }
+
+  @keyframes spin {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .contact-grid {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+
+    .contact-info {
+      padding: 0;
+    }
+
+    .alternative-buttons {
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .alternative-buttons .btn {
+      width: 200px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .contact-form-container {
+      padding: 1.5rem;
+    }
+
+    .flash-message {
+      padding: 0.75rem 1rem;
+      font-size: 0.9rem;
+    }
+  }
+</style>
+{% endblock %}

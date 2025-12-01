@@ -1,0 +1,83 @@
+{% extends "base.html" %} {% block title %}{{ project.title }} - Portfolio{%
+endblock %} {% block content %}
+<section class="section">
+  <div class="container">
+    <div class="project-detail">
+      <div class="project-header">
+        <h1 class="project-title">{{ project.title }}</h1>
+        <div class="project-meta">
+          <span class="project-category">{{ project.category }}</span>
+          <span class="project-views">
+            <i class="fas fa-eye"></i> {{ project.views }} views
+          </span>
+          <span class="project-date">
+            {{ project.created_at.strftime('%B %Y') }}
+          </span>
+        </div>
+      </div>
+
+      {% if project.image_url %}
+      <div class="project-hero">
+        <img
+          src="{{ url_for('static', filename=project.image_url) }}"
+          alt="{{ project.title }}"
+          class="project-hero-image"
+        />
+      </div>
+      {% endif %}
+
+      <div class="project-content">
+        <div class="project-description">
+          <h3>About This Project</h3>
+          <p>{{ project.description }}</p>
+
+          {% if project.full_description %}
+          <div class="project-full-description">
+            {{ project.full_description|safe }}
+          </div>
+          {% endif %}
+        </div>
+
+        <div class="project-sidebar">
+          <div class="project-info card">
+            <h4>Project Details</h4>
+
+            <div class="info-item">
+              <strong>Technologies:</strong>
+              <div class="tech-tags">
+                {% for tech in project.technologies.split(',') %}
+                <span class="tech-tag">{{ tech.strip() }}</span>
+                {% endfor %}
+              </div>
+            </div>
+
+            {% if project.github_url %}
+            <div class="info-item">
+              <strong>Source Code:</strong>
+              <a
+                href="{{ project.github_url }}"
+                target="_blank"
+                class="project-link"
+              >
+                <i class="fab fa-github"></i> GitHub
+              </a>
+            </div>
+            {% endif %} {% if project.live_url %}
+            <div class="info-item">
+              <strong>Live Demo:</strong>
+              <a
+                href="{{ project.live_url }}"
+                target="_blank"
+                class="project-link"
+              >
+                <i class="fas fa-external-link-alt"></i> Visit Site
+              </a>
+            </div>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}

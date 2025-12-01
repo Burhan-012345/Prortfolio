@@ -1,0 +1,87 @@
+{% extends "base.html" %}
+
+{% block title %}Projects - Portfolio{% endblock %}
+
+{% block content %}
+<section class="section">
+    <div class="container">
+        <h1 class="page-title">My Projects</h1>
+        
+        <!-- Filters -->
+        <div class="filters glass">
+            <div class="filter-group">
+                <label for="category-filter">Filter by Category:</label>
+                <select id="category-filter" class="form-control">
+                    <option value="all">All Categories</option>
+                    {% for category in categories %}
+                    <option value="{{ category[0] }}" {% if selected_category == category[0] %}selected{% endif %}>
+                        {{ category[0] or 'Uncategorized' }}
+                    </option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+
+        <!-- Projects Grid -->
+        <div class="projects-grid">
+            {% for project in projects %}
+            <div class="project-card card" data-category="{{ project.category or 'uncategorized' }}">
+                {% if project.image_url %}
+                <img src="{{ url_for('static', filename=project.image_url) }}" alt="{{ project.title }}" class="project-image">
+                {% else %}
+                <div class="project-image-placeholder">
+                    <i class="fas fa-code"></i>
+                </div>
+                {% endif %}
+                <div class="project-content">
+                    <h3 class="project-title">{{ project.title }}</h3>
+                    <p class="project-description">{{ project.description }}</p>
+                    <div class="project-tech">
+                        {% for tech in project.technologies.split(',') %}
+                        <span class="tech-tag">{{ tech.strip() }}</span>
+                        {% endfor %}
+                    </div>
+                    <div class="project-stats">
+                        <span class="project-views">
+                            <i class="fas fa-eye"></i> {{ project.views }} views
+                        </span>
+                    </div>
+                    <div class="project-links">
+                        {% if project.github_url %}
+                        <a href="{{ project.github_url }}" class="project-link" target="_blank">
+                            <i class="fab fa-github"></i>
+                        </a>
+                        {% endif %}
+                        {% if project.live_url %}
+                        <a href="{{ project.live_url }}" class="project-link" target="_blank">
+                            <i class="fas fa-external-link-alt"></i>
+                        </a>
+                        {% endif %}
+                        <a href="{{ url_for('project_detail', project_id=project.id) }}" class="project-link">
+                            <i class="fas fa-info-circle"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+        {% if not projects %}
+        <div class="empty-state">
+            <i class="fas fa-folder-open"></i>
+            <h3>No projects found</h3>
+            <p>Try adjusting your filters or check back later for new projects.</p>
+        </div>
+        {% endif %}
+    </div>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script>
+document.getElementById('category-filter').addEventListener('change', function() {
+    const category = this.value;
+    window.location.href = `{{ url_for('projects') }}?category=${category}`;
+});
+</script>
+{% endblock %}
