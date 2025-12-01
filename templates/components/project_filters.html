@@ -1,0 +1,151 @@
+<!-- Project Filters Component -->
+<div class="filters glass">
+    <div class="filter-group">
+        <label for="category-filter" class="filter-label">
+            <i class="fas fa-filter"></i> Category
+        </label>
+        <select id="category-filter" class="form-control">
+            <option value="all">All Categories</option>
+            {% for category in categories %}
+            <option value="{{ category[0] }}" 
+                    {% if selected_category == category[0] %}selected{% endif %}>
+                {{ category[0] or 'Uncategorized' }}
+            </option>
+            {% endfor %}
+        </select>
+    </div>
+    
+    <div class="filter-group">
+        <label for="tech-filter" class="filter-label">
+            <i class="fas fa-code"></i> Technology
+        </label>
+        <select id="tech-filter" class="form-control">
+            <option value="">All Technologies</option>
+            {% set all_techs = [] %}
+            {% for project in all_projects %}
+                {% for tech in project.technologies.split(',') %}
+                    {% if tech.strip() and tech.strip() not in all_techs %}
+                        {% set _ = all_techs.append(tech.strip()) %}
+                    {% endif %}
+                {% endfor %}
+            {% endfor %}
+            {% for tech in all_techs|sort %}
+            <option value="{{ tech }}" {% if selected_tech == tech %}selected{% endif %}>
+                {{ tech }}
+            </option>
+            {% endfor %}
+        </select>
+    </div>
+    
+    <div class="filter-group">
+        <label for="sort-filter" class="filter-label">
+            <i class="fas fa-sort"></i> Sort By
+        </label>
+        <select id="sort-filter" class="form-control">
+            <option value="newest">Newest First</option>
+            <option value="oldest">Oldest First</option>
+            <option value="views">Most Viewed</option>
+            <option value="featured">Featured First</option>
+        </select>
+    </div>
+    
+    <div class="filter-actions">
+        <button id="clear-filters" class="btn btn-outline btn-small">
+            <i class="fas fa-times"></i> Clear
+        </button>
+        <button id="apply-filters" class="btn btn-primary btn-small">
+            <i class="fas fa-check"></i> Apply
+        </button>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const categoryFilter = document.getElementById('category-filter');
+    const techFilter = document.getElementById('tech-filter');
+    const sortFilter = document.getElementById('sort-filter');
+    const applyBtn = document.getElementById('apply-filters');
+    const clearBtn = document.getElementById('clear-filters');
+    
+    function applyFilters() {
+        const params = new URLSearchParams();
+        
+        if (categoryFilter.value !== 'all') {
+            params.set('category', categoryFilter.value);
+        }
+        
+        if (techFilter.value) {
+            params.set('tech', techFilter.value);
+        }
+        
+        if (sortFilter.value !== 'newest') {
+            params.set('sort', sortFilter.value);
+        }
+        
+        const queryString = params.toString();
+        window.location.hqueryString ? `?${queryString}` : '{{ url_for('projects') }}';
+    }
+    
+    function clearFilters() {
+        window.location.href = '{{ url_for('projects') }}';
+    }
+    
+    applyBtn.addEventListener('click', applyFilters);
+    clearBtn.addEventListener('click', clearFilters);
+    
+    // Apply filters on enter key in selects
+    [categoryFilter, techFilter, sortFilter].forEach(select => {
+        select.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                applyFilters();
+            }
+        });
+    });
+});
+</script>
+
+<style>
+.filters {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.filter-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.filter-label {
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    color: var(--text-primary);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.filter-actions {
+    display: flex;
+    gap: 0.5rem;
+    align-items: flex-end;
+}
+
+.btn-small {
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
+}
+
+@media (max-width: 768px) {
+    .filters {
+        grid-template-columns: 1fr;
+    }
+    
+    .filter-actions {
+        grid-column: 1;
+        justify-content: center;
+    }
+}
+</style>

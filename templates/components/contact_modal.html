@@ -1,0 +1,207 @@
+<!-- Contact Modal Component -->
+<div id="contact-modal" class="modal">
+  <div class="modal-content glass">
+    <div class="modal-header">
+      <h3>Get In Touch</h3>
+      <button class="modal-close" id="contact-modal-close">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+
+    <div class="modal-body">
+      <form id="quick-contact-form" class="contact-form">
+        <div class="form-group">
+          <label for="quick-name" class="form-label">Name *</label>
+          <input
+            type="text"
+            id="quick-name"
+            name="name"
+            class="form-control"
+            required
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="quick-email" class="form-label">Email *</label>
+          <input
+            type="email"
+            id="quick-email"
+            name="email"
+            class="form-control"
+            required
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="quick-subject" class="form-label">Subject *</label>
+          <input
+            type="text"
+            id="quick-subject"
+            name="subject"
+            class="form-control"
+            required
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="quick-message" class="form-label">Message *</label>
+          <textarea
+            id="quick-message"
+            name="message"
+            class="form-control"
+            rows="4"
+            required
+          ></textarea>
+        </div>
+
+        <div class="form-actions">
+          <button type="submit" class="btn btn-full">
+            <i class="fas fa-paper-plane"></i> Send Message
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Contact Modal Functionality
+  document.addEventListener("DOMContentLoaded", function () {
+    const modal = document.getElementById("contact-modal");
+    const closeBtn = document.getElementById("contact-modal-close");
+    const form = document.getElementById("quick-contact-form");
+
+    // Open modal function (can be called from anywhere)
+    window.openContactModal = function () {
+      modal.style.display = "flex";
+      document.body.style.overflow = "hidden";
+    };
+
+    // Close modal
+    function closeModal() {
+      modal.style.display = "none";
+      document.body.style.overflow = "auto";
+    }
+
+    // Event listeners
+    closeBtn.addEventListener("click", closeModal);
+
+    // Close when clicking outside modal
+    modal.addEventListener("click", function (e) {
+      if (e.target === modal) {
+        closeModal();
+      }
+    });
+
+    // Form submission
+    form.addEventListener("submit", async function (e) {
+      e.preventDefault();
+
+      const formData = new FormData(form);
+      const submitBtn = form.querySelector('button[type="submit"]');
+      const originalText = submitBtn.innerHTML;
+
+      try {
+        submitBtn.innerHTML =
+          '<i class="fas fa-spinner fa-spin"></i> Sending...';
+        submitBtn.disabled = true;
+
+        const response = await fetch("/api/contact", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(Object.fromEntries(formData)),
+        });
+
+        if (response.ok) {
+          // Show success message
+          showFlashMessage("Message sent successfully!", "success");
+          form.reset();
+          closeModal();
+        } else {
+          throw new Error("Failed to send message");
+        }
+      } catch (error) {
+        showFlashMessage("Failed to send message. Please try again.", "error");
+      } finally {
+        submitBtn.innerHTML = originalText;
+        submitBtn.disabled = false;
+      }
+    });
+
+    function showFlashMessage(message, type) {
+      // Implementation for showing flash messages
+      console.log(`${type}: ${message}`);
+    }
+  });
+</script>
+
+<style>
+  .modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(5px);
+    z-index: 10000;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+  }
+
+  .modal-content {
+    width: 100%;
+    max-width: 500px;
+    max-height: 90vh;
+    overflow-y: auto;
+    animation: modalSlideIn 0.3s ease;
+  }
+
+  @keyframes modalSlideIn {
+    from {
+      opacity: 0;
+      transform: translateY(-50px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .modal-header h3 {
+    margin: 0;
+    color: var(--accent-primary);
+  }
+
+  .modal-close {
+    background: none;
+    border: none;
+    color: var(--text-secondary);
+    font-size: 1.2rem;
+    cursor: pointer;
+    padding: 0.5rem;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+  }
+
+  .modal-close:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--accent-primary);
+  }
+
+  .modal-body {
+    padding: 1.5rem;
+  }
+</style>

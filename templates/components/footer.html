@@ -1,0 +1,71 @@
+<!-- Footer Component -->
+<footer class="footer glass">
+  <div class="footer-content">
+    <div class="footer-section">
+      <h3>Portfolio</h3>
+      <p>Building amazing digital experiences with modern technologies.</p>
+    </div>
+
+    <div class="footer-section">
+      <h4>Quick Links</h4>
+      <div class="footer-links">
+        <a href="{{ url_for('index') }}">Home</a>
+        <a href="{{ url_for('projects') }}">Projects</a>
+        <a href="{{ url_for('blog') }}">Blog</a>
+        <a href="{{ url_for('contact') }}">Contact</a>
+      </div>
+    </div>
+
+    <div class="footer-section">
+      <h4>Connect</h4>
+      <div class="social-links">
+        <a
+          href="https://github.com"
+          class="social-link"
+          target="_blank"
+          title="GitHub"
+        >
+          <i class="fab fa-github"></i>
+        </a>
+        <a
+          href="https://linkedin.com"
+          class="social-link"
+          target="_blank"
+          title="LinkedIn"
+        >
+          <i class="fab fa-linkedin"></i>
+        </a>
+        <a
+          href="https://twitter.com"
+          class="social-link"
+          target="_blank"
+          title="Twitter"
+        >
+          <i class="fab fa-twitter"></i>
+        </a>
+        <a href="mailto:hello@portfolio.com" class="social-link" title="Email">
+          <i class="fas fa-envelope"></i>
+        </a>
+      </div>
+    </div>
+
+    <div class="footer-section">
+      <h4>Skills</h4>
+      <div class="footer-skills">
+        <span class="skill-tag">Python</span>
+        <span class="skill-tag">Flask</span>
+        <span class="skill-tag">JavaScript</span>
+        <span class="skill-tag">React</span>
+        <span class="skill-tag">SQL</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <p>&copy; 2024 Portfolio. All rights reserved.</p>
+    <div class="footer-meta">
+      <span>Built with Flask & ❤️</span>
+      <span id="visitor-count">Visitors: Loading...</span>
+    </div>
+  </div>
+</footer>
