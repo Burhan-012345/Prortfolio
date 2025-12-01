@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>New Contact Message</title>
+    <style>
+      /* Email-safe CSS with dark/neon theme */
+      body {
+        margin: 0;
+        padding: 0;
+        background: #0a0a0a;
+        font-family: "Inter", "Segoe UI", Arial, sans-serif;
+        color: #ffffff;
+        line-height: 1.6;
+      }
+
+      .email-container {
+        max-width: 600px;
+        margin: 0 auto;
+        background: #1a1a1a;
+        border-radius: 16px;
+        overflow: hidden;
+        border: 1px solid rgba(0, 255, 255, 0.2);
+        box-shadow: 0 0 30px rgba(0, 255, 255, 0.1);
+      }
+
+      .email-header {
+        background: linear-gradient(135deg, #00ffff 0%, #ff00ff 100%);
+        padding: 30px;
+        text-align: center;
+        position: relative;
+      }
+
+      .email-header::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.1);
+      }
+
+      .logo {
+        font-size: 28px;
+        font-weight: bold;
+        color: #000000;
+        position: relative;
+        z-index: 1;
+      }
+
+      .email-body {
+        padding: 40px 30px;
+      }
+
+      .message-card {
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(0, 255, 255, 0.2);
+        border-radius: 12px;
+        padding: 25px;
+        margin: 20px 0;
+        backdrop-filter: blur(10px);
+      }
+
+      .field-group {
+        margin-bottom: 20px;
+        padding-bottom: 20px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      .field-label {
+        font-size: 12px;
+        text-transform: uppercase;
+        color: #00ffff;
+        font-weight: 600;
+        letter-spacing: 0.5px;
+        margin-bottom: 5px;
+      }
+
+      .field-value {
+        font-size: 16px;
+        color: #ffffff;
+        font-weight: 500;
+      }
+
+      .message-content {
+        background: rgba(0, 0, 0, 0.3);
+        padding: 20px;
+        border-radius: 8px;
+        border-left: 4px solid #00ffff;
+        margin-top: 10px;
+        color: #ffffff; /* Explicitly set text color */
+        font-size: 14px;
+        line-height: 1.6;
+        word-wrap: break-word;
+      }
+
+      .email-footer {
+        background: rgba(0, 0, 0, 0.5);
+        padding: 25px 30px;
+        text-align: center;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      .footer-text {
+        color: #b0b0b0;
+        font-size: 14px;
+        margin: 0;
+      }
+
+      .glow-text {
+        text-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
+      }
+
+      .neon-border {
+        border: 1px solid rgba(0, 255, 255, 0.3);
+        box-shadow: 0 0 15px rgba(0, 255, 255, 0.2);
+      }
+
+      /* Responsive */
+      @media only screen and (max-width: 600px) {
+        .email-body {
+          padding: 30px 20px;
+        }
+
+        .message-card {
+          padding: 20px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="email-container">
+      <div class="email-header">
+        <div class="logo glow-text">PORTFOLIO</div>
+      </div>
+
+      <div class="email-body">
+        <h2 style="color: #00ffff; margin-bottom: 10px">New Contact Message</h2>
+        <p style="color: #b0b0b0; margin-bottom: 30px">
+          You've received a new message through your portfolio contact form.
+        </p>
+
+        <div class="message-card neon-border">
+          <div class="field-group">
+            <div class="field-label">From</div>
+            <div class="field-value">
+              {{ message.name }} &lt;{{ message.email }}&gt;
+            </div>
+          </div>
+
+          <div class="field-group">
+            <div class="field-label">Subject</div>
+            <div class="field-value">{{ message.subject }}</div>
+          </div>
+
+          <div
+            class="field-group"
+            style="border-bottom: none; margin-bottom: 0"
+          >
+            <div class="field-label">Message</div>
+            <div class="message-content">
+              {{ message.message | replace('\n', '<br />') | safe }}
+            </div>
+          </div>
+        </div>
+
+        <div
+          style="
+            background: rgba(0, 255, 255, 0.1);
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 25px;
+          "
+        >
+          <p style="margin: 0; color: #00ffff; font-size: 14px">
+            <strong>Message Details:</strong><br />
+            Received: {{ message.created_at.strftime('%Y-%m-%d at %H:%M') }}<br />
+            IP Address: {{ message.ip_address }}
+          </p>
+        </div>
+      </div>
+
+      <div class="email-footer">
+        <p class="footer-text">
+          This message was sent via your Portfolio Contact Form.<br />
+          <span style="color: #00ffff"
+            >© 2024 Portfolio. All rights reserved.</span
+          >
+        </p>
+      </div>
+    </div>
+  </body>
+</html>

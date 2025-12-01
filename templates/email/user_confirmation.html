@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Thank You for Contacting Us</title>
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        background: #0a0a0a;
+        font-family: "Inter", "Segoe UI", Arial, sans-serif;
+        color: #ffffff;
+        line-height: 1.6;
+      }
+
+      .email-container {
+        max-width: 600px;
+        margin: 0 auto;
+        background: #1a1a1a;
+        border-radius: 16px;
+        overflow: hidden;
+        border: 1px solid rgba(0, 255, 255, 0.2);
+        box-shadow: 0 0 30px rgba(0, 255, 255, 0.1);
+      }
+
+      .email-header {
+        background: linear-gradient(135deg, #00ffff 0%, #ff00ff 100%);
+        padding: 30px;
+        text-align: center;
+      }
+
+      .logo {
+        font-size: 28px;
+        font-weight: bold;
+        color: #000000;
+      }
+
+      .email-body {
+        padding: 40px 30px;
+      }
+
+      .confirmation-card {
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(0, 255, 255, 0.2);
+        border-radius: 12px;
+        padding: 25px;
+        margin: 20px 0;
+      }
+
+      .field-group {
+        margin-bottom: 15px;
+        padding-bottom: 15px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      .field-label {
+        font-size: 12px;
+        text-transform: uppercase;
+        color: #00ffff;
+        font-weight: 600;
+        margin-bottom: 5px;
+      }
+
+      .field-value {
+        font-size: 14px;
+        color: #ffffff;
+        line-height: 1.5;
+      }
+
+      .message-content {
+        background: rgba(255, 255, 255, 0.1);
+        padding: 15px;
+        border-radius: 8px;
+        border-left: 4px solid #00ffff;
+        margin-top: 10px;
+        color: #ffffff;
+        font-size: 14px;
+        line-height: 1.6;
+        word-wrap: break-word;
+      }
+
+      .email-footer {
+        background: rgba(0, 0, 0, 0.5);
+        padding: 25px 30px;
+        text-align: center;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      /* Ensure all text has proper contrast */
+      .text-white {
+        color: #ffffff !important;
+      }
+
+      .text-muted {
+        color: #b0b0b0 !important;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="email-container">
+      <div class="email-header">
+        <div class="logo">THANK YOU</div>
+      </div>
+
+      <div class="email-body">
+        <h2 style="color: #00ffff; margin-bottom: 10px">Message Received!</h2>
+        <p style="color: #b0b0b0; margin-bottom: 30px">
+          Thank you for contacting {{ get_setting('site_name', 'my portfolio')
+          }}. I've received your message and will get back to you as soon as
+          possible.
+        </p>
+
+        <div class="confirmation-card">
+          <div class="field-group">
+            <div class="field-label">Subject</div>
+            <div class="field-value text-white">{{ message.subject }}</div>
+          </div>
+
+          <div
+            class="field-group"
+            style="border-bottom: none; margin-bottom: 0"
+          >
+            <div class="field-label">Your Message</div>
+            <div class="message-content">
+              {{ message.message | replace('\n', '<br />') | safe }}
+            </div>
+          </div>
+
+          <div
+            style="
+              background: rgba(0, 255, 157, 0.1);
+              padding: 15px;
+              border-radius: 8px;
+              margin-top: 20px;
+            "
+          >
+            <p style="margin: 0; color: #00ff9d; font-size: 14px">
+              <strong>What's Next?</strong><br />
+              I typically respond within 24 hours. For urgent matters, you can
+              reach me directly at {{ get_setting('contact_email', 'my email')
+              }}.
+            </p>
+          </div>
+        </div>
+
+        <div
+          style="
+            margin-top: 25px;
+            padding: 15px;
+            background: rgba(0, 255, 255, 0.1);
+            border-radius: 8px;
+          "
+        >
+          <p style="margin: 0; color: #00ffff; font-size: 14px">
+            <strong>Message Details:</strong><br />
+            Received: {{ message.created_at.strftime('%Y-%m-%d at %H:%M') }}<br />
+            From: {{ message.name }} ({{ message.email }})
+          </p>
+        </div>
+      </div>
+
+      <div class="email-footer">
+        <p style="color: #b0b0b0; margin: 0; font-size: 14px">
+          This is an automated confirmation. Please do not reply to this
+          email.<br />
+          <span style="color: #00ffff">
+            © {{ current_year }} {{ get_setting('site_name', 'Portfolio') }}.
+            All rights reserved.
+          </span>
+        </p>
+      </div>
+    </div>
+  </body>
+</html>
